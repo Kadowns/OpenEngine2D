@@ -17,6 +17,7 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\GameManager.cpp" />
+    <ClCompile Include="src\Bullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -40,6 +41,8 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\GameManager.h" />
+    <ClInclude Include="src\Bullet.h" />
+    <ClInclude Include="src\Event.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

@@ -10,7 +10,7 @@ private:
 
 	DataLoader();
 
-	std::map<const char*, ofImage*> m_images;
+	std::map<std::string, ofImage*> m_images;
 
 	const std::string PATH_IMAGE_SHIP = "ship.png";
 

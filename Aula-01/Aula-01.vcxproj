@@ -175,6 +175,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Bullet.cpp" />
     <ClCompile Include="src\GameManager.cpp" />
     <ClCompile Include="src\DataLoader.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
@@ -183,6 +184,8 @@
     <ClCompile Include="src\Ship.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Bullet.h" />
+    <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\GameManager.h" />
     <ClInclude Include="src\DataLoader.h" />
     <ClInclude Include="src\GameObject.h" />
