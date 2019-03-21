@@ -18,6 +18,7 @@
     </ClCompile>
     <ClCompile Include="src\GameManager.cpp" />
     <ClCompile Include="src\Bullet.cpp" />
+    <ClCompile Include="src\Input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -43,6 +44,9 @@
     <ClInclude Include="src\GameManager.h" />
     <ClInclude Include="src\Bullet.h" />
     <ClInclude Include="src\Event.h" />
+    <ClInclude Include="src\Collider.h" />
+    <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\Team.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

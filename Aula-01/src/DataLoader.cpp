@@ -41,10 +41,9 @@ DataLoader::~DataLoader() {
 }
 
 ofImage* DataLoader::getImage(const char* name) {
-
 	auto it = m_images.find(name);
 	if (it != m_images.end()) {
 		return it->second;
 	}
-	return nullptr;
+	return nullptr; 
 }

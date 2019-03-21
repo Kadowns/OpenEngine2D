@@ -4,10 +4,11 @@
 #include <queue>
 
 
-#include "GameObject.h"
-#include "Event.h"
+#include "ofGraphics.h"
 
-typedef std::pair<GameObject*, ofRectangle*> Collider;
+#include "GameObject.h"
+#include "Collider.h"
+#include "Event.h"
 
 class GameManager {
 private:
@@ -20,7 +21,7 @@ private:
 	std::queue<GameObject*> m_createdObjects, m_destroyedObjects;
 
 	std::vector<Collider*> m_colliders;
-	double m_elapsedTime = 0;
+	double m_elapsedTime = 0;	
 
 public:
 
@@ -31,9 +32,24 @@ public:
 	void destroy(GameObject* obj);
 	void subscribeToCollision(Collider*);
 	void unsubscribeFromCollision(Collider*);
+
+	template<typename T>
+	std::vector<T> search();
+
 	void setup();
 	void update();
 	void draw();
 
 };
 
+template<typename T>
+inline std::vector<T> GameManager::search() {
+	std::vector<T> objs;
+	for (auto& it : m_objects) {
+		auto obj = dynamic_cast<T>(it);
+		if (obj != nullptr) {
+			objs.push_back(obj);
+		}
+	}
+	return obj;
+}

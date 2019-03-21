@@ -1,6 +1,10 @@
 #pragma once
+#include <stdlib.h>
+#include <stdio.h>
 
 class GameObject {
+private :
+	int numCollisions = 0;
 
 public:
 	
@@ -8,7 +12,10 @@ public:
 	virtual void update(float dt) = 0;
 	virtual void draw() = 0;
 
-	virtual void onCollisionWith(GameObject*) { printf("bateu!"); }
+	virtual void onCollisionWith(GameObject*) {
+		numCollisions++;
+		printf("bateu! numero de batidas: %d\n", numCollisions);
+	}
 
 	virtual ~GameObject() = default;
 };

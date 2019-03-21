@@ -4,7 +4,7 @@
 #include "Ship.h"
 
 GameManager::GameManager() {
-	m_objects.push_back(new Ship());
+	
 }
 
 
@@ -36,26 +36,30 @@ void GameManager::unsubscribeFromCollision(Collider* col) {
 }
 
 void GameManager::setup() {
-	for (auto& it : m_objects) {
-		it->setup();
-	}
+	add(new Ship(0, ofVec2f(300, 500)));
+	add(new Ship(1, ofVec2f(600, 500)));
 }
 
 void GameManager::update() {
 
-	
+	//cria objetos--------------------------
 	while (!m_createdObjects.empty()) {
 		auto obj = m_createdObjects.front();
 		obj->setup();
 		m_objects.push_back(obj);
 		m_createdObjects.pop();
 	}
-	
+	//-----------------------------------------
+
+
+	//atualiza objetos----------------------------
 	auto dt = ofGetLastFrameTime();
 	for (auto& it : m_objects) {
 		it->update(dt);	
 	}
+	//--------------------------------------------
 
+	//testa colisões---------------------------------
 	for (int i = 0; i < m_colliders.size(); i++) {
 		for (int j = 0; j < m_colliders.size(); j++) {
 			if (i <= j) {
@@ -68,12 +72,16 @@ void GameManager::update() {
 			}
 		}
 	}
+	//-----------------------------------------------
 
+	//Destroi objetos-------------------------------
 	while (!m_destroyedObjects.empty()) {
 		auto obj = m_destroyedObjects.front();
 		m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), obj));
+		delete obj;
 		m_destroyedObjects.pop();
 	}
+	//----------------------------------------------
 }
 
 void GameManager::draw() {

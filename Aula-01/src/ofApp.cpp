@@ -1,5 +1,6 @@
 #include "ofApp.h"
 #include "GameManager.h"
+#include "Input.h"
 
 ofApp::ofApp() {
 }
@@ -9,12 +10,14 @@ ofApp::~ofApp() {
 
 //--------------------------------------------------------------
 void ofApp::setup(){	
+	Input::load();
 	GameManager::instance().setup();
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
+void ofApp::update(){	
 	GameManager::instance().update();
+	Input::update();
 }
 
 //--------------------------------------------------------------
@@ -24,12 +27,13 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	std::cout << "key pressed:" << key << std::endl;
+	Input::setKeyPressed(key);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+	Input::setKeyReleased(key);
 }
 
 //--------------------------------------------------------------

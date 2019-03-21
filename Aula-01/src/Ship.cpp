@@ -2,43 +2,56 @@
 
 #include "DataLoader.h"
 #include "GameManager.h"
+#include "Input.h"
 #include "ofGraphics.h"
 
 #include "Bullet.h"
 
-Ship::Ship() {
+Ship::Ship(const int& playerNumber, const ofVec2f& position, TEAM team) {
 	m_image = DataLoader::instance().getImage("ship");
+	m_team = team;
+	m_collider.first = this;
+	m_collider.second = new ofRectangle(
+		m_position,
+		m_image->getWidth(),
+		m_image->getHeight()
+	);
+	m_position = position;
+
+	m_playerNumber = std::to_string(playerNumber);
 }
 
 Ship::~Ship() {
-	GameManager::instance().subscribeToCollision(new Collider(dynamic_cast<GameObject*>(this), &m_collider));
+	GameManager::instance().unsubscribeFromCollision(&m_collider);
 }
 
 void Ship::setup() {
-	GameManager::instance().subscribeToCollision(new Collider(dynamic_cast<GameObject*>(this), &m_collider));
+	GameManager::instance().subscribeToCollision(&m_collider);
 }
 
 void Ship::update(float dt) {
 
-	if (ofGetKeyPressed(OF_KEY_RIGHT)) {		
+	if (Input::getButtonDown("turnright" + m_playerNumber)) {
 		m_rotation += ofDegToRad(360) * dt;
 	}
-	if (ofGetKeyPressed(OF_KEY_LEFT)) {
+	if (Input::getButtonDown("turnleft" + m_playerNumber)) {
 		m_rotation -= ofDegToRad(360) * dt;
 	}	
 
-	if (ofGetKeyPressed(OF_KEY_UP)) {
+	if (Input::getButtonDown("moveup" + m_playerNumber)) {
 		m_position += ofVec2f(cos(m_rotation), sin(m_rotation)) * m_speed * dt;
 	}
-	if (ofGetKeyPressed(OF_KEY_DOWN)) {
+	if (Input::getButtonDown("movedown" + m_playerNumber)) {
 		m_position -= ofVec2f(cos(m_rotation), sin(m_rotation)) * m_speed * dt;
 	}
 
 	m_lastFire += dt;
-	if (ofGetKeyPressed(OF_KEY_LEFT_CONTROL) && m_lastFire > m_fireDelay) {
-		GameManager::instance().add(new Bullet(m_position, m_rotation));
+	if (Input::getButtonDown("fire" + m_playerNumber) && m_lastFire > m_fireDelay) {
+		GameManager::instance().add(new Bullet(m_position, m_rotation, m_team));
 		m_lastFire = 0;
 	}
+
+	m_collider.second->position = m_position;	
 }
 
 void Ship::draw() {
