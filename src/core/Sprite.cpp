@@ -2,8 +2,7 @@
 
 #include "ofGraphics.h"
 
-#include "../core/DataLoader.h"
-
+#include "DataLoader.h"
 #include "GameObject.h"
 
 Sprite::Sprite(GameObject* attached, const char* imageName) {

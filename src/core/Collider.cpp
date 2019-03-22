@@ -1,5 +1,5 @@
 #include "Collider.h"
-#include "../core/PhysicsManager.h"
+#include "PhysicsManager.h"
 
 Collider::Collider(GameObject* pAttached, ofVec2f * pPosition, float w, float h) {
     p_attached = pAttached;

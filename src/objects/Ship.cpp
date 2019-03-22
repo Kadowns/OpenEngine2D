@@ -2,10 +2,11 @@
 
 #include "../core/GameManager.h"
 #include "../core/InputManager.h"
+#include "../core/Sprite.h"
+#include "../core/Collider.h"
 
 #include "Bullet.h"
-#include "Sprite.h"
-#include "Collider.h"
+
 
 Ship::Ship(const int& playerNumber, const ofVec2f& position, TEAM team) {
     m_sprite = new Sprite(this, "ship");	

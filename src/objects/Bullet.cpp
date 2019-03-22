@@ -6,8 +6,8 @@
 
 #include "../core/DataLoader.h"
 #include "../core/GameManager.h"
-#include "Collider.h"
-#include "Sprite.h"
+#include "../core/Collider.h"
+#include "../core/Sprite.h"
 #include "Ship.h"
 
 

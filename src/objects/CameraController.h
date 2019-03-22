@@ -1,8 +1,8 @@
 #pragma once
 
-#include "GameObject.h"
-
+#include "../core/GameObject.h"
 #include "../core/Camera.h"
+
 #include "../Event.h"
 
 class CameraController : public GameObject {

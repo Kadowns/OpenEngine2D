@@ -1,9 +1,9 @@
 #pragma once
 
-#include "GameObject.h"
+
+#include "../core/GameObject.h"
+
 #include "Team.h"
-
-
 
 class Sprite;
 class Collider;

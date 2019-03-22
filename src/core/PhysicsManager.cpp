@@ -1,5 +1,5 @@
 #include "PhysicsManager.h"
-#include "../objects/Collider.h"
+#include "Collider.h"
 
 
 std::vector<Collider*> PhysicsManager::m_colliders;

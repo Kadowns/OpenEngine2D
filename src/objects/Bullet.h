@@ -2,7 +2,8 @@
 
 #include "../Event.h"
 
-#include "GameObject.h"
+#include "../core/GameObject.h"
+
 #include "Team.h"
 
 class Ship;
