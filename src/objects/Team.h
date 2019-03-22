@@ -5,7 +5,6 @@ enum TEAM {
 	TEAM_BLUE
 };
 
-
 class Team {
 protected:
 	TEAM m_team;

@@ -3,12 +3,10 @@
 #include <vector>
 #include <queue>
 
+#include "../Event.h"
+#include "Camera.h"
 
-#include "ofGraphics.h"
-
-#include "GameObject.h"
-#include "Collider.h"
-#include "Event.h"
+class GameObject;
 
 class GameManager {
 private:
@@ -19,9 +17,8 @@ private:
 
 	std::vector<GameObject*> m_objects;
 	std::queue<GameObject*> m_createdObjects, m_destroyedObjects;
-
-	std::vector<Collider*> m_colliders;
-	double m_elapsedTime = 0;	
+	
+    Camera* m_camera;
 
 public:
 
@@ -30,15 +27,15 @@ public:
 
 	void add(GameObject* obj);
 	void destroy(GameObject* obj);
-	void subscribeToCollision(Collider*);
-	void unsubscribeFromCollision(Collider*);
 
 	template<typename T>
 	std::vector<T*> search();
-
+    
 	void setup();
 	void update();
 	void draw();
+    void destroy();
+
 
 };
 

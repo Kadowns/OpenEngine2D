@@ -7,9 +7,10 @@ class ofApp : public ofBaseApp {
 public:
 		ofApp();
 		~ofApp();
-		void setup();
-		void update();
-		void draw();
+        virtual void setup() override;
+        virtual void update() override;
+        virtual void draw() override;
+        virtual void exit() override;
 
 		void keyPressed(int key);
 		void keyReleased(int key);

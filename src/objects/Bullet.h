@@ -1,30 +1,33 @@
 #pragma once
 
+#include "../Event.h"
+
 #include "GameObject.h"
-#include "Collider.h"
-#include "ofVectorMath.h"
-#include "ofImage.h"
 #include "Team.h"
 
 class Ship;
+class Collider;
+class Sprite;
 
 class Bullet : public GameObject, public Team {
 private:
-
-	ofImage* m_image;
-	Collider m_collider;
-	ofVec2f m_position;
-	float m_rotation;
+	
+	Collider* m_collider;
+    Sprite* m_sprite;
 	float m_speed = 600.0f;	
 
     Ship* m_target = nullptr;
+
+
+    //callbacks
+    Event<GameObject*>::EventListener m_onCollisionCallback;
 
 public:
 	Bullet(const ofVec2f& position, const float& rotation, TEAM team);
 	~Bullet();
 
 	// Inherited via GameObject
-    virtual void onCollisionWith(GameObject*) override;
+    void onCollisionWith(GameObject*);
 	virtual void setup() override;
 	virtual void update(float dt) override;
 	virtual void draw() override;

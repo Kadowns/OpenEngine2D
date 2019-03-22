@@ -3,7 +3,11 @@
 #include <set>
 #include <map>
 
-class Input {
+#include "ofVectorMath.h"
+
+#include "EventManager.h"
+
+class InputManager {
 public:	
 
 	static void load();
@@ -16,6 +20,7 @@ public:
 	static bool getKeyPressed(int key);
 	static bool getKeyReleased(int key);
 	static bool getKeyDown(int key);
+    static ofVec2f getMousePosition();
 
 	static void setButton(std::string name, int key);
 	
@@ -24,6 +29,16 @@ public:
 	static bool getButtonReleased(const std::string& name);
 
 private:
+
+    static void onMouseClick(int x, int y, int key);
+    static void onMouseReleased(int x, int y, int key);
+    static void onMouseMoved(int x, int y);
+
+    static Event<int, int>::EventListener m_onMouseMoveCallback;
+    static Event<int, int, int>::EventListener m_onMouseClickCallback;
+    static Event<int, int, int>::EventListener m_onMouseReleasedCallback;
+
+    static ofVec2f m_mousePosition;
 
 	static std::set<int> m_pressedKeys, m_downKeys, m_releasedKeys;
 	static std::map<std::string, int> m_buttons;

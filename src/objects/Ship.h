@@ -1,30 +1,27 @@
 #pragma once
-#include <ofImage.h>
 
-#include "Collider.h"
-#include "Team.h"
 #include "GameObject.h"
-#include "ofVectorMath.h"
+#include "Team.h"
+
+
+
+class Sprite;
+class Collider;
 
 class Ship : public GameObject, public Team {
 private:
 
-	ofImage* m_image;
-	Collider m_collider;
-	ofVec2f m_position;	
-	float m_rotation = 0;	
+	Sprite* m_sprite;
+	Collider* m_collider;		
 	float m_speed = 450.0f;
 	float m_fireDelay = 0.5f;
 	float m_lastFire = 0;
-
-	std::string m_playerNumber;
+	
+    std::string m_buttonRight, m_buttonLeft, m_buttonForward, m_buttonBackward, m_buttonFire;
 
 public:
 	Ship(const int& playerNumber, const ofVec2f& position, TEAM team);
 	~Ship();
-
-    ofVec2f getPosition();
-
 
 	// Inherited via GameObject
 	virtual void setup() override;
