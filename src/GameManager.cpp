@@ -36,8 +36,8 @@ void GameManager::unsubscribeFromCollision(Collider* col) {
 }
 
 void GameManager::setup() {
-	add(new Ship(0, ofVec2f(300, 500)));
-	add(new Ship(1, ofVec2f(600, 500)));
+	add(new Ship(0, ofVec2f(300, 500), TEAM_RED));
+	add(new Ship(1, ofVec2f(600, 500), TEAM_BLUE));
 }
 
 void GameManager::update() {

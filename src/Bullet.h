@@ -6,6 +6,8 @@
 #include "ofImage.h"
 #include "Team.h"
 
+class Ship;
+
 class Bullet : public GameObject, public Team {
 private:
 
@@ -15,11 +17,14 @@ private:
 	float m_rotation;
 	float m_speed = 600.0f;	
 
+    Ship* m_target = nullptr;
+
 public:
 	Bullet(const ofVec2f& position, const float& rotation, TEAM team);
 	~Bullet();
 
 	// Inherited via GameObject
+    virtual void onCollisionWith(GameObject*) override;
 	virtual void setup() override;
 	virtual void update(float dt) override;
 	virtual void draw() override;

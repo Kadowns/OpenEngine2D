@@ -25,6 +25,10 @@ Ship::~Ship() {
 	GameManager::instance().unsubscribeFromCollision(&m_collider);
 }
 
+ofVec2f Ship::getPosition() {
+    return m_position;
+}
+
 void Ship::setup() {
 	GameManager::instance().subscribeToCollision(&m_collider);
 }

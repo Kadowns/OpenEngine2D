@@ -21,6 +21,10 @@
 *.pyc
 .svn/
 *.log
+*.dll
+*.exe
+*.exp
+*.lib
 
 ########################
 # IDE files which should

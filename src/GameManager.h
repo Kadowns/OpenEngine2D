@@ -34,7 +34,7 @@ public:
 	void unsubscribeFromCollision(Collider*);
 
 	template<typename T>
-	std::vector<T> search();
+	std::vector<T*> search();
 
 	void setup();
 	void update();
@@ -43,13 +43,13 @@ public:
 };
 
 template<typename T>
-inline std::vector<T> GameManager::search() {
-	std::vector<T> objs;
-	for (auto& it : m_objects) {
-		auto obj = dynamic_cast<T>(it);
+inline std::vector<T*> GameManager::search() {
+	std::vector<T*> found;
+	for (auto it : m_objects) {
+		auto obj = dynamic_cast<T*>(it);
 		if (obj != nullptr) {
-			objs.push_back(obj);
+            found.push_back(obj);
 		}
 	}
-	return obj;
+	return found;
 }

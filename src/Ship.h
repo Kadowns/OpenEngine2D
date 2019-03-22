@@ -23,6 +23,9 @@ public:
 	Ship(const int& playerNumber, const ofVec2f& position, TEAM team);
 	~Ship();
 
+    ofVec2f getPosition();
+
+
 	// Inherited via GameObject
 	virtual void setup() override;
 	virtual void update(float dt) override;
