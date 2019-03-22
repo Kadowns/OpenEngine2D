@@ -1,28 +1,39 @@
 #include "ofApp.h"
+#include "GameManager.h"
+#include "Input.h"
 
-//--------------------------------------------------------------
-void ofApp::setup(){
+ofApp::ofApp() {
+}
 
+ofApp::~ofApp() {
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
+void ofApp::setup(){	
+	Input::load();
+	GameManager::instance().setup();
+}
 
+//--------------------------------------------------------------
+void ofApp::update(){	
+	GameManager::instance().update();
+	Input::update();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+	GameManager::instance().draw();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	std::cout << "key pressed:" << key << std::endl;
+	Input::setKeyPressed(key);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+	Input::setKeyReleased(key);
 }
 
 //--------------------------------------------------------------

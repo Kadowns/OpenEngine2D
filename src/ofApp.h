@@ -2,9 +2,11 @@
 
 #include "ofMain.h"
 
-class ofApp : public ofBaseApp{
+class ofApp : public ofBaseApp {
 
-	public:
+public:
+		ofApp();
+		~ofApp();
 		void setup();
 		void update();
 		void draw();
