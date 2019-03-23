@@ -7,14 +7,15 @@ std::set<int> InputManager::m_releasedKeys;
 std::map<std::string, int> InputManager::m_buttons;
 
 Event<int, int>::EventListener InputManager::m_onMouseMoveCallback;
-Event<int, int, int>::EventListener InputManager::m_onMouseClickCallback;
-Event<int, int, int>::EventListener InputManager::m_onMouseReleasedCallback;
+Event<int, int>::EventListener InputManager::m_onMouseClickCallback;
+Event<int, int>::EventListener InputManager::m_onMouseReleasedCallback;
 
 ofVec2f InputManager::m_mousePosition;
 
 void InputManager::load() {
 
     setButton("leftMouse", OF_MOUSE_BUTTON_1);
+    setButton("rightMouse", OF_MOUSE_BUTTON_3);
 
 	setButton("turnleft0", 'a');
 	setButton("turnright0", 'd');
@@ -87,13 +88,11 @@ bool InputManager::getButtonReleased(const std::string& name) {
 	return getKeyReleased(m_buttons[name]);
 }
 
-void InputManager::onMouseClick(int x, int y, int key) {
-    setKeyPressed(key); 
+void InputManager::onMouseClick(int x, int y) {
     onMouseMoved(x, y);
 }
 
-void InputManager::onMouseReleased(int x, int y, int key) {
-    setKeyReleased(key);
+void InputManager::onMouseReleased(int x, int y) {
     onMouseMoved(x, y);
 }
 

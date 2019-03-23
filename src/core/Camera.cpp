@@ -28,10 +28,12 @@ Camera::~Camera() {
 }
 
 void Camera::bind() {
-    ofPushMatrix();
-    ofTranslate(m_windowSize - transform.position);
-    ofRotateZ(ofRadToDeg(transform.rotation));
+    ofPushMatrix();    
+    ofTranslate(m_windowSize);
+    ofRotateZ(RAD_TO_DEG * transform.rotation);    
     ofScale(transform.scale, transform.scale);
+    ofTranslate(-transform.position);
+    
 }
 
 void Camera::unbind() {
@@ -42,7 +44,7 @@ void Camera::windowResized(int w, int h) {
     m_windowSize.set(w / 2, h / 2);
 }
 
-ofVec2f Camera::screenToWorld(const ofVec2f& point) {
-    return ofVec2f(point + transform.position - m_windowSize);
+ofVec2f Camera::screenToWorld(const ofVec2f& point) {    
+    return (point - m_windowSize).getRotatedRad(-transform.rotation) / transform.scale + transform.position;
 }
 

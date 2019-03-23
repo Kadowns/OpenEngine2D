@@ -1,13 +1,14 @@
 #include "Bullet.h"
 
-#include "ofGraphics.h"
-
 #include <limits>
+
+#include "ofGraphics.h"
 
 #include "../core/DataLoader.h"
 #include "../core/GameManager.h"
 #include "../core/Collider.h"
 #include "../core/Sprite.h"
+
 #include "Ship.h"
 
 
@@ -25,6 +26,7 @@ Bullet::Bullet(const ofVec2f& position, const float& rotation, TEAM team) {
 }
 
 Bullet::~Bullet() {	
+    m_collider->onCollisionWith -= &m_onCollisionCallback;
     delete m_collider;
     delete m_sprite;
 }
@@ -63,7 +65,7 @@ void Bullet::update(float dt) {
     if (m_target != nullptr) {
         auto dist = (m_target->transform.position - transform.position).getNormalized();
         float targetRotation = atan2f(dist.y, dist.x);
-        transform.rotation = ofLerpRadians(transform.rotation, targetRotation, 0.02f);
+        transform.rotation = ofLerpRadians(transform.rotation, targetRotation, 0.05f);
     }    	
 }
 

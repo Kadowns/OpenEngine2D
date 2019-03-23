@@ -30,13 +30,13 @@ public:
 
 private:
 
-    static void onMouseClick(int x, int y, int key);
-    static void onMouseReleased(int x, int y, int key);
+    static void onMouseClick(int x, int y);
+    static void onMouseReleased(int x, int y);
     static void onMouseMoved(int x, int y);
 
     static Event<int, int>::EventListener m_onMouseMoveCallback;
-    static Event<int, int, int>::EventListener m_onMouseClickCallback;
-    static Event<int, int, int>::EventListener m_onMouseReleasedCallback;
+    static Event<int, int>::EventListener m_onMouseClickCallback;
+    static Event<int, int>::EventListener m_onMouseReleasedCallback;
 
     static ofVec2f m_mousePosition;
 

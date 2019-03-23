@@ -54,19 +54,24 @@ void ofApp::mouseMoved(int x, int y){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
+    EventManager::onMouseDragged(x, y);
+}
 
+//--------------------------------------------------------------
+void ofApp::mouseScrolled(int x, int y, float scrollX, float scrollY) {
+    EventManager::onMouseScrolled(x, y, scrollX, scrollY);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
     InputManager::setKeyPressed(button);
-    EventManager::onMousePressed(x, y, button);
+    EventManager::onMousePressed(x, y);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
     InputManager::setKeyReleased(button);
-    EventManager::onMouseReleased(x, y, button);
+    EventManager::onMouseReleased(x, y);
 }
 
 //--------------------------------------------------------------

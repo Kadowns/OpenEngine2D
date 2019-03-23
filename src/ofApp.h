@@ -16,6 +16,7 @@ public:
 		void keyReleased(int key);
 		void mouseMoved(int x, int y );
 		void mouseDragged(int x, int y, int button);
+        virtual void mouseScrolled(int x, int y, float scrollX, float scrollY) override;
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
 		void mouseEntered(int x, int y);

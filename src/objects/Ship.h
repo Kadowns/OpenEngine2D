@@ -14,7 +14,7 @@ private:
 	Sprite* m_sprite;
 	Collider* m_collider;		
 	float m_speed = 450.0f;
-	float m_fireDelay = 0.5f;
+	float m_fireDelay = 0.15f;
 	float m_lastFire = 0;
 	
     std::string m_buttonRight, m_buttonLeft, m_buttonForward, m_buttonBackward, m_buttonFire;
