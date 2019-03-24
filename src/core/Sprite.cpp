@@ -2,16 +2,18 @@
 
 #include "ofGraphics.h"
 
-#include "DataLoader.h"
+#include "GameRenderer.h"
+#include "DataManager.h"
 #include "GameObject.h"
 
 Sprite::Sprite(GameObject* attached, const char* imageName) {
     m_attached = attached;
-    m_image = DataLoader::getImage(imageName);
+    m_image = DataManager::getImage(imageName);
+    GameRenderer::add(this);
 }
 
 Sprite::~Sprite() {
-
+    GameRenderer::remove(this);
 }
 
 void Sprite::draw() {

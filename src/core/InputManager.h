@@ -10,7 +10,7 @@
 class InputManager {
 public:	
 
-	static void load();
+	static void setup();
 
 	static void update();
 
@@ -21,6 +21,8 @@ public:
 	static bool getKeyReleased(int key);
 	static bool getKeyDown(int key);
     static ofVec2f getMousePosition();
+
+    static void setButtonMap(const std::map<std::string, int>& buttons);
 
 	static void setButton(std::string name, int key);
 	

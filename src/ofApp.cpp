@@ -1,9 +1,10 @@
 #include "ofApp.h"
 #include "core/GameManager.h"
+#include "core/GameRenderer.h"
 #include "core/PhysicsManager.h"
 #include "core/InputManager.h"
 #include "core/EventManager.h"
-#include "core/DataLoader.h"
+#include "core/DataManager.h"
 
 ofApp::ofApp() {
 }
@@ -14,27 +15,28 @@ ofApp::~ofApp() {
 //--------------------------------------------------------------
 void ofApp::setup(){	
     ofSetBackgroundColor(ofColor::black);
-    DataLoader::loadImages();
-	InputManager::load();
+    InputManager::setup();
+    DataManager::load();	
 	GameManager::instance().setup();
+    GameRenderer::setup();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){	
-	GameManager::instance().update();
-    PhysicsManager::update();
-    GameManager::instance().destroy();
+    auto dt = ofGetLastFrameTime();
+	GameManager::instance().update(dt);
+    PhysicsManager::update(dt);
 	InputManager::update();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	GameManager::instance().draw();
+    GameRenderer::draw();
 }
 
 //--------------------------------------------------------------
 void ofApp::exit() {
-    DataLoader::unloadImages();
+    DataManager::unload();
 }
 
 //--------------------------------------------------------------

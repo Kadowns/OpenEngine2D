@@ -2,15 +2,17 @@
 
 #include "ofImage.h"
 
+#include "IRenderable.h"
+
 class GameObject;
 
-class Sprite {
+class Sprite : IRenderable {
 public:
 
     Sprite(GameObject* attached, const char* imageName);
     ~Sprite();
 
-    void draw();
+    virtual void draw() override;
 
     float getWidth();
     float getHeight();

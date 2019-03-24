@@ -1,6 +1,8 @@
 #include "InputManager.h"
 #include "ofConstants.h"
 
+#include "DataManager.h"
+
 std::set<int> InputManager::m_downKeys;
 std::set<int> InputManager::m_pressedKeys;
 std::set<int> InputManager::m_releasedKeys;
@@ -12,9 +14,10 @@ Event<int, int>::EventListener InputManager::m_onMouseReleasedCallback;
 
 ofVec2f InputManager::m_mousePosition;
 
-void InputManager::load() {
+void InputManager::setup() {
 
-    setButton("leftMouse", OF_MOUSE_BUTTON_1);
+
+    /*setButton("leftMouse", OF_MOUSE_BUTTON_1);
     setButton("rightMouse", OF_MOUSE_BUTTON_3);
 
 	setButton("turnleft0", 'a');
@@ -22,13 +25,16 @@ void InputManager::load() {
 	setButton("forward0", 'w');
 	setButton("backward0", 's');
 	setButton("fire0", ' ');
+    setButton("special0", OF_KEY_LEFT_CONTROL);
 
 	setButton("turnleft1", OF_KEY_LEFT);
 	setButton("turnright1", OF_KEY_RIGHT);
 	setButton("forward1", OF_KEY_UP);
 	setButton("backward1", OF_KEY_DOWN);
 	setButton("fire1", OF_KEY_RIGHT_CONTROL);
+    setButton("special1", OF_KEY_RIGHT_SHIFT);*/
 
+    //DataManager::saveInputConfig(m_buttons, ".input");
 
     m_onMouseClickCallback = InputManager::onMouseClick;
     EventManager::onMousePressed += &m_onMouseClickCallback;
@@ -70,6 +76,10 @@ bool InputManager::getKeyDown(int key) {
 
 ofVec2f InputManager::getMousePosition() {
     return m_mousePosition;
+}
+
+void InputManager::setButtonMap(const std::map<std::string, int>& buttons) {
+    m_buttons = buttons;
 }
 
 void InputManager::setButton(std::string name, int key) {	

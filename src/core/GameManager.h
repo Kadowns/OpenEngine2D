@@ -18,7 +18,6 @@ private:
 	std::vector<GameObject*> m_objects;
 	std::queue<GameObject*> m_createdObjects, m_destroyedObjects;
 	
-    Camera* m_camera;
 
 public:
 
@@ -32,10 +31,7 @@ public:
 	std::vector<T*> search();
     
 	void setup();
-	void update();
-	void draw();
-    void destroy();
-
+	void update(float dt);
 
 };
 

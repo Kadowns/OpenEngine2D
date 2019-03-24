@@ -15,6 +15,7 @@ public:
     void windowResized(int w, int h);
 
     ofVec2f screenToWorld(const ofVec2f& point);
+    ofVec2f halfScreenSize();
 
     Transform2D transform;
 
@@ -23,5 +24,5 @@ private:
 
 
     Event<int, int>::EventListener m_onWindowResizedCallback;
-    ofVec2f m_windowSize;
+    ofVec2f m_halfWindowSize;
 };

@@ -3,35 +3,32 @@
 #include <map>
 
 #include "ofGraphics.h"
+
 #include "../Event.h"
 
 class GameObject;
-class ofRectangle;
-class ofVec2f;
+struct Transform2D;
+class Rigidbody2D;
 
 class Collider {
 
 public:
     Event<GameObject*> onCollisionWith;
 
-    Collider(GameObject* pAttached, ofVec2f* pPosition, float w, float h);
-    ~Collider();
+    Collider(GameObject* pAttached, Transform2D* pTransform, Rigidbody2D* rb);
+    virtual ~Collider();
 
-    void tryCollision(Collider& other);
-    
+    virtual void tryCollision(Collider* other) = 0;
 
-    GameObject* getAttachedGameObject();
-    const ofRectangle& getRectangle();
+    GameObject* getGameObject();
 
-private:
+protected:
 
     Collider(Collider&);
     Collider& operator = (Collider& other);
 
-    void updatePosition();
-
-    GameObject* p_attached;
-    ofVec2f* p_position;
-    ofRectangle m_rec;
+    GameObject* p_gameObject;
+    Transform2D* p_transform;
+    Rigidbody2D* p_rb;
 
 };

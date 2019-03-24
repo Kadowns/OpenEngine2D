@@ -29,6 +29,5 @@ private:
     // Inherited via GameObject
     virtual void setup() override;
     virtual void update(float dt) override;
-    virtual void draw() override;
 
 };

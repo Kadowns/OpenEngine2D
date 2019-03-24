@@ -6,19 +6,17 @@
 
 #include "Team.h"
 
-class Ship;
 class Collider;
 class Sprite;
+class Rigidbody2D;
 
 class Bullet : public GameObject, public Team {
 private:
 	
 	Collider* m_collider;
     Sprite* m_sprite;
-	float m_speed = 600.0f;	
-
-    Ship* m_target = nullptr;
-
+    Rigidbody2D* m_rb;
+	float m_speed = 10.0f, m_targetRotation;	
 
     //callbacks
     Event<GameObject*>::EventListener m_onCollisionCallback;
@@ -31,6 +29,5 @@ public:
     void onCollisionWith(GameObject*);
 	virtual void setup() override;
 	virtual void update(float dt) override;
-	virtual void draw() override;
 };
 

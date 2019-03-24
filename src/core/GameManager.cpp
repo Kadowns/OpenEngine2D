@@ -1,11 +1,11 @@
 #include "GameManager.h"
-#include "ofMain.h"
 
 #include "../objects/Ship.h"
 #include "../objects/CameraController.h"
+#include "../objects/StarBackground.h"
 
 GameManager::GameManager() {
-    m_camera = new Camera(ofVec2f(300, 500), ofDegToRad(50), 1, 1024, 768);
+    
 }
 
 
@@ -32,9 +32,10 @@ void GameManager::setup() {
 	add(new Ship(0, ofVec2f(0, 0), TEAM_RED));
 	add(new Ship(1, ofVec2f(600, 500), TEAM_BLUE));
     add(new CameraController());
+    add(new StarBackground(200));
 }
 
-void GameManager::update() {
+void GameManager::update(float dt) {
 
 	//cria objetos--------------------------
 	while (!m_createdObjects.empty()) {
@@ -45,23 +46,6 @@ void GameManager::update() {
 	}
 	//-----------------------------------------
 
-	//atualiza objetos----------------------------
-	auto dt = ofGetLastFrameTime();
-	for (auto& it : m_objects) {
-		it->update(dt);	
-	}
-	//--------------------------------------------	
-}
-
-void GameManager::draw() {    
-    m_camera->bind();
-	for (auto& it : m_objects) {
-		it->draw();
-	}
-    m_camera->unbind();
-}
-
-void GameManager::destroy() {
     //Destroi objetos-------------------------------
     while (!m_destroyedObjects.empty()) {
         auto obj = m_destroyedObjects.front();
@@ -70,4 +54,11 @@ void GameManager::destroy() {
         m_destroyedObjects.pop();
     }
     //----------------------------------------------
+
+	//atualiza objetos----------------------------
+	
+	for (auto& it : m_objects) {
+		it->update(dt);	
+	}
+	//--------------------------------------------	
 }

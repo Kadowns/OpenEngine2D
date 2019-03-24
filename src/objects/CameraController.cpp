@@ -69,7 +69,3 @@ void CameraController::update(float dt) {
         Camera::mainCamera().transform.rotation = ofLerp(Camera::mainCamera().transform.rotation, ofDegToRad(m_targetRotation), 0.1f);
     }
 }
-
-void CameraController::draw() {
-
-}
