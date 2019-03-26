@@ -20,7 +20,7 @@ private:
 
     Collider* m_collider;
     Sprite* m_sprite;
-    float m_speed = 6000.0f;
+    float m_speed = 600.0f;
 
     Ship* m_target = nullptr;
 
