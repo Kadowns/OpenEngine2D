@@ -1,5 +1,6 @@
 #include "StarBackground.h"
 
+#include "../core/Timer.h"
 #include "../core/Camera.h"
 #include "../core/GameRenderer.h"
 
@@ -25,9 +26,13 @@ void StarBackground::setup() {
 }
 
 void StarBackground::update(float dt) {
-    transform.position = Camera::mainCamera().transform.position; 
+    transform.position += (Camera::mainCamera().transform.position - m_lastCameraPosition) * 0.5f; 
+	m_lastCameraPosition = Camera::mainCamera().transform.position;
     transform.scale = 1.0f / Camera::mainCamera().transform.scale;   
-    
+
+	for (auto& it : m_stars) {
+		it.update();
+	}   
 }
 
 void StarBackground::draw() {
@@ -36,18 +41,18 @@ void StarBackground::draw() {
     ofRotateZ(RAD_TO_DEG * transform.rotation);
     ofScale(transform.scale, transform.scale);
     
-    for (auto it : m_stars) {
+
+    for (auto& it : m_stars) {
+		ofSetColor(255, it.alpha);
         ofDrawCircle(it.position, it.radius);
     }
+	ofSetColor(ofColor::white);
     ofPopMatrix();
 }
 
 Star::Star() {
-
-}
-
-Star::Star(const ofVec2f& position, float radius) : position(position), radius(radius) {
-
+	randomOffset = ofRandom(0, 360 * DEG_TO_RAD);
+	randomOsccilation = ofRandom(0.5f, 3.0f);
 }
 
 Star::~Star() {
@@ -56,4 +61,8 @@ Star::~Star() {
 
 void Star::isInsideWindow(const ofVec2f& windowSize) {
 
+}
+
+void Star::update() {	
+	alpha = (((sin(Timer::time() * randomOsccilation + randomOffset) ) + 1.0f) / 2.0f) * 255;
 }

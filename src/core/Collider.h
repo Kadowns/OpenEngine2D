@@ -4,7 +4,7 @@
 
 #include "ofGraphics.h"
 
-#include "../Event.h"
+#include "Event.h"
 
 class GameObject;
 struct Transform2D;

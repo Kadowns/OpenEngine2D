@@ -62,10 +62,8 @@ void CameraController::setup() {
     m_target = Camera::mainCamera().transform.position;
 }
 
-void CameraController::update(float dt) {    
-    Camera::mainCamera().transform.position = lerp(Camera::mainCamera().transform.position, m_target, 0.1f);
-    Camera::mainCamera().transform.scale = ofLerp(Camera::mainCamera().transform.scale, m_scrollAmount, 0.1f);
-    if (!InputManager::getButtonDown("leftMouse")) {
-        Camera::mainCamera().transform.rotation = ofLerp(Camera::mainCamera().transform.rotation, ofDegToRad(m_targetRotation), 0.1f);
-    }
+void CameraController::update(float dt) {
+	Camera::mainCamera().transform.position = lerp(Camera::mainCamera().transform.position, m_target, m_smootSpeed * dt);
+	Camera::mainCamera().transform.scale = ofLerp(Camera::mainCamera().transform.scale, m_scrollAmount, m_smootSpeed * dt);
+	Camera::mainCamera().transform.rotation = ofLerp(Camera::mainCamera().transform.rotation, ofDegToRad(m_targetRotation), m_smootSpeed * dt);
 }

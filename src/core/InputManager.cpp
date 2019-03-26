@@ -83,7 +83,7 @@ void InputManager::setButtonMap(const std::map<std::string, int>& buttons) {
 }
 
 void InputManager::setButton(std::string name, int key) {	
-	m_buttons[name] = key;
+	m_buttons[name] = key;	
 }
 
 bool InputManager::getButtonPressed(const std::string& name) {

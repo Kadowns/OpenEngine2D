@@ -3,7 +3,7 @@
 #include <vector>
 #include <queue>
 
-#include "../Event.h"
+#include "Event.h"
 #include "Camera.h"
 
 class GameObject;

@@ -175,10 +175,52 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\Camera.cpp" />
+    <ClCompile Include="src\core\CircleCollider.cpp" />
+    <ClCompile Include="src\core\Collider.cpp" />
+    <ClCompile Include="src\core\DataManager.cpp" />
+    <ClCompile Include="src\core\EventManager.cpp" />
+    <ClCompile Include="src\core\GameManager.cpp" />
+    <ClCompile Include="src\core\GameObject.cpp" />
+    <ClCompile Include="src\core\GameRenderer.cpp" />
+    <ClCompile Include="src\core\InputManager.cpp" />
+    <ClCompile Include="src\core\PhysicsManager.cpp" />
+    <ClCompile Include="src\core\Rigidbody2D.cpp" />
+    <ClCompile Include="src\core\Sprite.cpp" />
+    <ClCompile Include="src\core\Timer.cpp" />
+    <ClCompile Include="src\core\Transform2D.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\objects\Bullet.cpp" />
+    <ClCompile Include="src\objects\CameraController.cpp" />
+    <ClCompile Include="src\objects\Missile.cpp" />
+    <ClCompile Include="src\objects\Ship.cpp" />
+    <ClCompile Include="src\objects\StarBackground.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\Camera.h" />
+    <ClInclude Include="src\core\CircleCollider.h" />
+    <ClInclude Include="src\core\Collider.h" />
+    <ClInclude Include="src\core\DataManager.h" />
+    <ClInclude Include="src\core\EventManager.h" />
+    <ClInclude Include="src\core\GameManager.h" />
+    <ClInclude Include="src\core\GameObject.h" />
+    <ClInclude Include="src\core\GameRenderer.h" />
+    <ClInclude Include="src\core\InputManager.h" />
+    <ClInclude Include="src\core\IRenderable.h" />
+    <ClInclude Include="src\core\Overloads.h" />
+    <ClInclude Include="src\core\PhysicsManager.h" />
+    <ClInclude Include="src\core\Rigidbody2D.h" />
+    <ClInclude Include="src\core\Sprite.h" />
+    <ClInclude Include="src\core\Timer.h" />
+    <ClInclude Include="src\core\Transform2D.h" />
+    <ClInclude Include="src\core\Event.h" />
+    <ClInclude Include="src\objects\Bullet.h" />
+    <ClInclude Include="src\objects\CameraController.h" />
+    <ClInclude Include="src\objects\Missile.h" />
+    <ClInclude Include="src\objects\Ship.h" />
+    <ClInclude Include="src\objects\StarBackground.h" />
+    <ClInclude Include="src\objects\Team.h" />
     <ClInclude Include="src\ofApp.h" />
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc">
-        <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
     </ResourceCompile>

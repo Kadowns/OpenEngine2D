@@ -2,7 +2,7 @@
 
 #include "ofVectorMath.h"
 
-#include "../Event.h"
+#include "Event.h"
 
 class EventManager {
 

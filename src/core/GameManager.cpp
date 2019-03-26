@@ -55,8 +55,7 @@ void GameManager::update(float dt) {
     }
     //----------------------------------------------
 
-	//atualiza objetos----------------------------
-	
+	//atualiza objetos----------------------------	
 	for (auto& it : m_objects) {
 		it->update(dt);	
 	}

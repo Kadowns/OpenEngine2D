@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Event.h"
+#include "../core/Event.h"
 #include "../core/GameObject.h"
 #include "Team.h"
 

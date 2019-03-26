@@ -1,6 +1,6 @@
 #pragma once
 #include "Transform2D.h"
-#include "../Event.h"
+#include "Event.h"
 
 struct Camera {
 public:

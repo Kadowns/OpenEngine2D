@@ -4,14 +4,14 @@
 
 struct Star {
     Star();
-    Star(const ofVec2f& position, float radius);
     ~Star();
 
     void isInsideWindow(const ofVec2f& windowSize);
+	void update();
 
+	
     ofVec2f position;
-    float radius;
-
+    float radius, alpha = 255, randomOffset, randomOsccilation;
 };
 
 
