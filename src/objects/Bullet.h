@@ -7,15 +7,13 @@
 
 class Collider;
 class Sprite;
-class Rigidbody2D;
 
 class Bullet : public GameObject, public Team {
 private:
 	
 	Collider* m_collider;
     Sprite* m_sprite;
-    Rigidbody2D* m_rb;
-	float m_speed = 10.0f, m_targetRotation;	
+    float m_speed = 800.0f, m_targetRotation, m_lifetime = 4, m_timealive = 0;
 
     //callbacks
     Event<GameObject*>::EventListener m_onCollisionCallback;

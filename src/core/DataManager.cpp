@@ -55,10 +55,10 @@ std::vector<std::string> DataManager::getFileList(const std::string& path) {
     if (!path.empty()) {
         namespace fs = boost::filesystem;
 
-        fs::path apk_path(path);
+        fs::path dirPath(path);
         fs::recursive_directory_iterator end;
 
-        for (fs::recursive_directory_iterator i(apk_path); i != end; ++i) {
+        for (fs::recursive_directory_iterator i(dirPath); i != end; ++i) {
             const fs::path cp = (*i);
             std::string filename = cp.string().substr(cp.string().find("data\\") + 5);//gambiarra
             fileList.push_back(filename);

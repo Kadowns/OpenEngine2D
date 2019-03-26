@@ -61,7 +61,8 @@ void Missile::setup() {
 void Missile::update(float dt) {    
     transform.position += transform.getRight() * m_speed * dt;
     if (m_target != nullptr) {
-        auto targetRotation = transform.getRight().angleRad((m_target->transform.position - transform.position));
+        auto distance = m_target->transform.position - transform.position;
+        auto targetRotation = atan2f(distance.y, distance.x);
         transform.rotation = ofLerpRadians(transform.rotation, targetRotation, 0.1f);
     }
 }
