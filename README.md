@@ -9,6 +9,6 @@ To clone this project, do the following:
 - Create a .gitignore(touch .gitignore) and ignore all everything except for the src and bin folders.
 - Execute (git add .) and (git commit -m"-New repo clone").
 - Add this repository as the remote (git remote add origin https://github.com/osboludos/OpenEngineWorks.git).
-- Finally (git fetch) and (git pull origin master --allow-unrelated-histories --strategy-option-theirs).
+- Finally (git fetch) and (git pull origin master --allow-unrelated-histories --strategy-option theirs).
 
 --Be sure to always commit only src code and data files!
