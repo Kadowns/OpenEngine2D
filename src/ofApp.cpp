@@ -26,7 +26,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){	
-	Timer::update();
+	Timer::update();	
 	GameManager::instance().update(Timer::deltaTime());
     PhysicsManager::update(Timer::deltaTime());
 	InputManager::update();

@@ -14,6 +14,9 @@ public:
 
     size_t getId() const;
 
+	bool operator==(GameObject& other) const;
+	bool operator<(GameObject& other) const;
+
 	virtual void setup() = 0;
 	virtual void update(float dt) = 0;
 

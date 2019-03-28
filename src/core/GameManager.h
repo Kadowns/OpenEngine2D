@@ -2,9 +2,10 @@
 
 #include <vector>
 #include <queue>
+#include <set>
+#include <unordered_set>
 
 #include "Event.h"
-#include "Camera.h"
 
 class GameObject;
 

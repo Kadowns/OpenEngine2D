@@ -34,7 +34,7 @@ Missile::~Missile() {
 void Missile::onCollisionWith(GameObject* other) {
     auto ship = dynamic_cast<Ship*>(other);
     if (ship != nullptr) {
-        if (ship->getTeam() == m_team) {
+        if (ship->getTeam() != m_team) {
             GameManager::instance().destroy(ship);
             GameManager::instance().destroy(this);
         }        
@@ -50,18 +50,7 @@ void Missile::onCollisionWith(GameObject* other) {
 
 void Missile::setup() {
 
-    auto ships = GameManager::instance().search<Ship>();
-
-    float mindist = std::numeric_limits<float>::max();
-    for (auto it : ships) {
-        if (it->getTeam() != m_team) {
-            float dist = (transform.position - it->transform.position).length();
-            if (dist < mindist) {
-                m_target = it;
-                mindist = dist;
-            }
-        }
-    }
+	searchTargets();
 }
 
 void Missile::update(float dt) {    
@@ -69,6 +58,24 @@ void Missile::update(float dt) {
     if (m_target != nullptr) {
         auto distance = m_target->transform.position - transform.position;
         auto targetRotation = atan2f(distance.y, distance.x);
-        transform.rotation = ofLerpRadians(transform.rotation, targetRotation, 0.1f);
-    }
+        transform.rotation = ofLerpRadians(transform.rotation, targetRotation, 2.5f * dt);
+	}
+	else {
+		searchTargets();
+	}
+}
+
+void Missile::searchTargets() {
+	auto asteroids = GameManager::instance().search<Asteroid>();
+
+	float mindist = std::numeric_limits<float>::max();
+	for (auto it : asteroids) {
+
+		float dist = (transform.position - it->transform.position).length();
+		if (dist < mindist) {
+			m_target = it;
+			mindist = dist;
+		}
+
+	}
 }

@@ -4,7 +4,7 @@
 #include "../core/GameObject.h"
 #include "Team.h"
 
-class Ship;
+class Asteroid;
 class Collider;
 class Sprite;
 
@@ -22,7 +22,7 @@ private:
     Sprite* m_sprite;
     float m_speed = 600.0f;
 
-    Ship* m_target = nullptr;
+    Asteroid* m_target = nullptr;
 
     //callbacks
     Event<GameObject*>::EventListener m_onCollisionCallback;
@@ -31,4 +31,6 @@ private:
     // Inherited via GameObject
     virtual void setup() override;
     virtual void update(float dt) override;
+
+	void searchTargets();
 };

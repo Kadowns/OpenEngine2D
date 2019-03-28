@@ -19,20 +19,22 @@ GameManager::~GameManager() {
 	for (auto& it : m_objects) {
 		delete it;
 	}
+	m_objects.clear();
 }
 
 void GameManager::add(GameObject* obj) {
-    obj->setId(++m_nextId);
+    obj->setId(++m_nextId);	
 	m_createdObjects.push_back(obj);
 }
 
 void GameManager::destroy(GameObject* obj) {
-    //gambiarra? um objeto não pode ser destruido mais de uma vez
-    for (auto it : m_destroyedObjects) {
-        if (it->getId() == obj->getId()) {
-            return;
-        }
-    }
+	for (auto& it : m_destroyedObjects) {
+		if (it->getId() == obj->getId()) {
+			printf("Objeto com id repetida:%d\n", obj->getId());
+			return;
+		}			
+	}
+	printf("Objeto com id adicionado para destruicao:%d\n", obj->getId());
 	m_destroyedObjects.push_back(obj);
 }
 
@@ -47,23 +49,25 @@ void GameManager::setup() {
 
 void GameManager::update(float dt) {
    
+	//cria objetos--------------------------
+	while (!m_createdObjects.empty()) {
+		auto obj = m_createdObjects.back();
+		obj->setup();
+		m_objects.push_back(obj);
+		m_createdObjects.pop_back();
+	}
+	//-----------------------------------------
+
     //Destroi objetos-------------------------------
     while (!m_destroyedObjects.empty()) {
-        auto obj = m_destroyedObjects.back();
+		auto obj = m_destroyedObjects.front();
         m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), obj));
         delete obj;
-        m_destroyedObjects.pop_back();
+		m_destroyedObjects.erase(std::remove(m_destroyedObjects.begin(), m_destroyedObjects.end(), obj));
     }
     //----------------------------------------------
 
-    //cria objetos--------------------------
-    while (!m_createdObjects.empty()) {
-        auto obj = m_createdObjects.back();
-        obj->setup();
-        m_objects.push_back(obj);
-        m_createdObjects.pop_back();
-    }
-    //-----------------------------------------
+    
 
 	//atualiza objetos----------------------------	
 	for (auto& it : m_objects) {

@@ -29,11 +29,11 @@ Camera::~Camera() {
 
 void Camera::bind() {
     ofPushMatrix();    
-    ofTranslate(m_halfWindowSize);
-    ofRotateZ(RAD_TO_DEG * transform.rotation);    
-    ofScale(transform.scale, transform.scale);
-    ofTranslate(-transform.position);
-    
+	ofTranslate(m_halfWindowSize);
+	ofRotateZ(RAD_TO_DEG * transform.rotation);
+	ofScale(transform.scale, transform.scale);
+	ofTranslate(-transform.position);
+     
 }
 
 void Camera::unbind() {
@@ -44,8 +44,9 @@ void Camera::windowResized(int w, int h) {
     m_halfWindowSize.set(w / 2, h / 2);
 }
 
-ofVec2f Camera::screenToWorld(const ofVec2f& point) {    
-    return (point - m_halfWindowSize).getRotatedRad(-transform.rotation) / transform.scale + transform.position;
+ofVec2f Camera::screenToWorld(const ofVec2f& point) {
+	auto vec = (point - m_halfWindowSize).getRotatedRad(-transform.rotation) / transform.scale;	
+    return vec + transform.position;
 }
 
 ofVec2f Camera::worldToScreen(const ofVec2f& point) {

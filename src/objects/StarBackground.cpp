@@ -1,5 +1,6 @@
 #include "StarBackground.h"
 
+#include "../core/Overloads.h"
 #include "../core/Timer.h"
 #include "../core/Camera.h"
 #include "../core/GameRenderer.h"
@@ -26,7 +27,7 @@ void StarBackground::setup() {
 }
 
 void StarBackground::update(float dt) {
-    transform.position += (Camera::mainCamera().transform.position - m_lastCameraPosition) * 0.5f; 
+	transform.position += (Camera::mainCamera().transform.position - m_lastCameraPosition); //* 0.05f; 
 	m_lastCameraPosition = Camera::mainCamera().transform.position;
     transform.scale = 1.0f / Camera::mainCamera().transform.scale;   
 
@@ -39,14 +40,17 @@ void StarBackground::update(float dt) {
 
 void StarBackground::draw() {
     ofPushMatrix();       
-    ofTranslate(transform.position);
-    //ofRotateZ(RAD_TO_DEG * transform.rotation);
-    //ofScale(transform.scale, transform.scale);
-    
+	//essa merda não funciona
+	//DEBUG_VEC((transform.position * Camera::mainCamera().transform.scale));
+	
+	ofTranslate(transform.position);	
+	ofScale(transform.scale, transform.scale);
+	//ofRotateZ(RAD_TO_DEG * transform.rotation); 
+	
 
     for (auto& it : m_stars) {
 		ofSetColor(255, it.alpha);
-        ofDrawCircle(it.position * transform.scale,  it.radius * transform.scale);
+        ofDrawCircle(it.position,  it.radius);
     }
 	ofSetColor(ofColor::white);
     ofPopMatrix();

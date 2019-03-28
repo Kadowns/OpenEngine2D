@@ -26,7 +26,7 @@ CameraController::CameraController() {
     m_onMouseScrollCallback = [this](int x, int y, float scrollX, float scrollY) {
         this->onMouseScroll(x, y, scrollY);
     };
-    EventManager::onMouseScrolled += &m_onMouseScrollCallback;
+	EventManager::onMouseScrolled += &m_onMouseScrollCallback;
 }
 
 CameraController::~CameraController() {    

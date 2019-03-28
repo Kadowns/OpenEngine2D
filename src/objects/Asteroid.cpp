@@ -51,9 +51,9 @@ void Asteroid::onCollisionWith(GameObject* other) {
 
 void Asteroid::destroy() {
     if (m_type == BIG) {
-        size_t asteroidsToSpawn = 1;
+        size_t asteroidsToSpawn = 3;
         for (size_t i = 0; i < asteroidsToSpawn; i++) {
-            float percent = ofRandom(0.0f, 1.0f);
+			float percent = (float)i / asteroidsToSpawn;
             ofVec2f direction = ofVec2f(cos(percent * 360 * DEG_TO_RAD), sin(percent * 360 * DEG_TO_RAD));
             GameManager::instance().add(new Asteroid(transform.position + direction * 20, direction * ofRandom(80, 160), ofRandom(-180, 180), SMALL));
         }

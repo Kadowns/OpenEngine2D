@@ -36,7 +36,6 @@ void PhysicsManager::update(float dt) {
             if (i <= j) {
                 continue;
             }
-
             m_colliders[i]->tryCollision(m_colliders[j]);
         }
     }
