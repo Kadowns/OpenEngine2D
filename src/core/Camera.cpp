@@ -29,11 +29,10 @@ Camera::~Camera() {
 
 void Camera::bind() {
     ofPushMatrix();    
-	ofTranslate(m_halfWindowSize);
-	ofRotateZ(RAD_TO_DEG * transform.rotation);
-	ofScale(transform.scale, transform.scale);
+	ofTranslate(m_halfWindowSize);	
+	ofRotateZ(RAD_TO_DEG * transform.rotation);	
+	ofScale(transform.scale, transform.scale);	
 	ofTranslate(-transform.position);
-     
 }
 
 void Camera::unbind() {

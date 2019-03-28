@@ -76,6 +76,5 @@ void Missile::searchTargets() {
 			m_target = it;
 			mindist = dist;
 		}
-
 	}
 }
