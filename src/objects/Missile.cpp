@@ -9,6 +9,7 @@
 #include "../core/Sprite.h"
 
 #include "Ship.h"
+#include "Asteroid.h"
 
 
 Missile::Missile(const ofVec2f & position, const float & rotation, TEAM team) {
@@ -30,16 +31,21 @@ Missile::~Missile() {
     delete m_collider;
 }
 
-void Missile::onCollisionWith(GameObject * go) {
-    auto ship = dynamic_cast<Ship*>(go);
-    if (ship == nullptr)
+void Missile::onCollisionWith(GameObject* other) {
+    auto ship = dynamic_cast<Ship*>(other);
+    if (ship != nullptr) {
+        if (ship->getTeam() == m_team) {
+            GameManager::instance().destroy(ship);
+            GameManager::instance().destroy(this);
+        }        
         return;
+    }
 
-    if (ship->getTeam() == m_team)
-        return;
-
-    GameManager::instance().destroy(ship);
-    GameManager::instance().destroy(this);
+    auto asteroid = dynamic_cast<Asteroid*>(other);
+    if (asteroid != nullptr) {
+        asteroid->destroy();
+        GameManager::instance().destroy(this);
+    }
 }
 
 void Missile::setup() {

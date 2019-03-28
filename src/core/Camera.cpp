@@ -48,6 +48,10 @@ ofVec2f Camera::screenToWorld(const ofVec2f& point) {
     return (point - m_halfWindowSize).getRotatedRad(-transform.rotation) / transform.scale + transform.position;
 }
 
+ofVec2f Camera::worldToScreen(const ofVec2f& point) {
+    return (point + m_halfWindowSize).getRotatedRad(transform.rotation) * transform.scale - transform.position;
+}
+
 ofVec2f Camera::halfScreenSize() {
     return m_halfWindowSize;
 }

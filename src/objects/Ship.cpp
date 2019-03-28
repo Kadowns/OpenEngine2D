@@ -50,6 +50,9 @@ void Ship::update(float dt) {
         m_rb->addForce(-transform.getRight() * m_speed);
 	}
 
+    //auto screenPos = Camera::mainCamera().worldToScreen(transform.position);
+    //printf("world pos: x:%f, y:%f\n", screenPos.x, screenPos.y);
+
 	m_lastFire += dt;
 	if (InputManager::getButtonDown(m_buttonFire) && m_lastFire > m_fireDelay) {
 		GameManager::instance().add(new Bullet(transform.position, transform.rotation, m_team));

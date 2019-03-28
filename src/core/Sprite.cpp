@@ -20,6 +20,7 @@ void Sprite::draw() {
     ofPushMatrix();
     ofTranslate(m_attached->transform.position);
     ofRotateZ(ofRadToDeg(m_attached->transform.rotation));
+    ofScale(m_attached->transform.scale, m_attached->transform.scale);
     m_image->draw(0, 0);
     ofPopMatrix();
 }

@@ -11,7 +11,7 @@
 #include "../core/Sprite.h"
 
 #include "Ship.h"
-
+#include "Asteroid.h"
 
 Bullet::Bullet(const ofVec2f& position, const float& rotation, TEAM team) {
     transform.position = position;
@@ -37,14 +37,20 @@ Bullet::~Bullet() {
 
 void Bullet::onCollisionWith(GameObject* other) {
     auto ship = dynamic_cast<Ship*>(other);
-    if (ship == nullptr)
+    if (ship != nullptr) {
+        if (ship->getTeam() != m_team) {
+            GameManager::instance().destroy(ship);
+            GameManager::instance().destroy(this);
+        }                    
         return;
+    }
 
-    if (ship->getTeam() == m_team)
-        return;
-
-    GameManager::instance().destroy(ship);
-    GameManager::instance().destroy(this);
+    auto asteroid = dynamic_cast<Asteroid*>(other);
+    if (asteroid != nullptr) {
+        printf("Bullet id:%d bateu no asteroide com id:%d\n", getId(), other->getId());
+        asteroid->destroy();
+        GameManager::instance().destroy(this);
+    }    
 }
 
 void Bullet::setup() {

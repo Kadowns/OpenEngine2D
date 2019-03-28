@@ -15,6 +15,7 @@ public:
     void windowResized(int w, int h);
 
     ofVec2f screenToWorld(const ofVec2f& point);
+    ofVec2f worldToScreen(const ofVec2f& point);
     ofVec2f halfScreenSize();
 
     Transform2D transform;

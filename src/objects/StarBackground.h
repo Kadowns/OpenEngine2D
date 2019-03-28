@@ -6,7 +6,7 @@ struct Star {
     Star();
     ~Star();
 
-    void isInsideWindow(const ofVec2f& windowSize);
+    void isInsideWindow(const ofVec2f& windowSize, const ofVec2f& center);
 	void update();
 
 	

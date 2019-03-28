@@ -14,7 +14,7 @@ public:
     ~Rigidbody2D();
 
     void addForce(const ofVec2f& force, FORCE_MODE mode = ACCELERATION);
-    void addTorque(const float& torque);
+    void addTorque(const float& torque, FORCE_MODE mode = ACCELERATION);
     void update(float dt);
 
     ofVec2f getVelocity() const;

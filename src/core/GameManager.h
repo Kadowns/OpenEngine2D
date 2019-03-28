@@ -15,9 +15,9 @@ private:
 	GameManager(GameManager&);
 	GameManager& operator = (GameManager& other);
 
-	std::vector<GameObject*> m_objects;
-	std::queue<GameObject*> m_createdObjects, m_destroyedObjects;
+	std::vector<GameObject*> m_objects, m_createdObjects, m_destroyedObjects;	
 	
+    size_t m_nextId = 0;
 
 public:
 

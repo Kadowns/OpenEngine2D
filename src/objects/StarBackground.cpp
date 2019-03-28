@@ -30,21 +30,23 @@ void StarBackground::update(float dt) {
 	m_lastCameraPosition = Camera::mainCamera().transform.position;
     transform.scale = 1.0f / Camera::mainCamera().transform.scale;   
 
+    auto windowSize = Camera::mainCamera().halfScreenSize();
 	for (auto& it : m_stars) {
+        //it.isInsideWindow(windowSize, transform.position);
 		it.update();
 	}   
 }
 
 void StarBackground::draw() {
-    ofPushMatrix();    
+    ofPushMatrix();       
     ofTranslate(transform.position);
-    ofRotateZ(RAD_TO_DEG * transform.rotation);
-    ofScale(transform.scale, transform.scale);
+    //ofRotateZ(RAD_TO_DEG * transform.rotation);
+    //ofScale(transform.scale, transform.scale);
     
 
     for (auto& it : m_stars) {
 		ofSetColor(255, it.alpha);
-        ofDrawCircle(it.position, it.radius);
+        ofDrawCircle(it.position * transform.scale,  it.radius * transform.scale);
     }
 	ofSetColor(ofColor::white);
     ofPopMatrix();
@@ -59,8 +61,22 @@ Star::~Star() {
 
 }
 
-void Star::isInsideWindow(const ofVec2f& windowSize) {
+void Star::isInsideWindow(const ofVec2f& windowSize, const ofVec2f& center) {
 
+    //auto screenPos = Camera::mainCamera().screenToWorld
+    if (center.x + position.x > windowSize.x * 2) {
+        position.x -= windowSize.x;
+    }
+    else if (center.x + position.x < -windowSize.x * 2) {
+        position.x += windowSize.x;
+    }
+
+    if (center.y + position.y > windowSize.y * 2) {
+        position.y -= windowSize.y;
+    }
+    else if (center.y + position.y < -windowSize.y * 2) {
+        position.y += windowSize.y;
+    }
 }
 
 void Star::update() {	
