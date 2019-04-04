@@ -24,13 +24,13 @@ void StarBackground::setup() {
     }
     m_lastCameraPosition = Camera::mainCamera().transform.position;
     transform.position = m_lastCameraPosition;
-	transform.scale = Camera::mainCamera().transform.scale;
+	
 }
 
 void StarBackground::update(float dt) {
-	transform.position += (Camera::mainCamera().transform.position - m_lastCameraPosition) * 0.5f; 
+	transform.position += (Camera::mainCamera().transform.position - m_lastCameraPosition) * 0.1f; 
 	m_lastCameraPosition = Camera::mainCamera().transform.position;
-
+	transform.scale = 1 / Camera::mainCamera().transform.scale;
     auto windowSize = Camera::mainCamera().halfScreenSize();
 	for (auto& it : m_stars) {
         //it.isInsideWindow(windowSize, transform.position);
@@ -42,9 +42,10 @@ void StarBackground::draw() {
     ofPushMatrix();       
 	//essa merda não funciona
 	//DEBUG_VEC((transform.position * Camera::mainCamera().transform.scale));
-	ofTranslate(transform.position);
+	ofTranslate(Camera::mainCamera().transform.position);
+	ofScale(transform.scale, transform.scale);
+	ofTranslate(-transform.position);
 	ofRotateZ(RAD_TO_DEG * transform.rotation);
-	ofScale(1 /transform.scale, 1 / transform.scale);
 
     for (auto& it : m_stars) {
 		ofSetColor(255, it.alpha);
