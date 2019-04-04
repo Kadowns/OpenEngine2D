@@ -32,16 +32,14 @@ void StarBackground::update(float dt) {
 	m_lastCameraPosition = Camera::mainCamera().transform.position;
 	transform.scale = 1 / Camera::mainCamera().transform.scale;
     auto windowSize = Camera::mainCamera().halfScreenSize();
-	for (auto& it : m_stars) {
-        //it.isInsideWindow(windowSize, transform.position);
+	for (auto& it : m_stars) {        
 		it.update();
+		//it.isInsideWindow(windowSize, transform.position);
 	}   
 }
 
 void StarBackground::draw() {
     ofPushMatrix();       
-	//essa merda não funciona
-	//DEBUG_VEC((transform.position * Camera::mainCamera().transform.scale));
 	ofTranslate(Camera::mainCamera().transform.position);
 	ofScale(transform.scale, transform.scale);
 	ofTranslate(-transform.position);
