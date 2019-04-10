@@ -4,16 +4,28 @@
 #include "../core/Timer.h"
 #include "../core/Camera.h"
 #include "../core/GameRenderer.h"
+#include "../core/EventManager.h"
 
 StarBackground::StarBackground(size_t starCount) {
     m_stars.resize(starCount);
     m_layerOrder = 255;
-    GameRenderer::add(this);
+
+    m_onMouseClickCallback = [this](int x, int y) {
+        this->onMouseClicked(x, y);
+    };
+    EventManager::onMousePressed += &m_onMouseClickCallback;
+    GameRenderer::add(this, false);
 }
 
 StarBackground::~StarBackground() {
     m_stars.clear();
-    GameRenderer::remove(this);
+    EventManager::onMousePressed -= &m_onMouseClickCallback;
+    GameRenderer::remove(this, false);
+}
+
+void StarBackground::onMouseClicked(int x, int y) {
+    m_lastClickPosition = ofVec2f(x, y) - Camera::mainCamera().halfScreenSize();
+    m_targetPosition = transform.position + m_lastClickPosition;    
 }
 
 void StarBackground::setup() {
@@ -22,15 +34,15 @@ void StarBackground::setup() {
         m_stars[i].position = ofVec2f(ofRandom(-wh.x, wh.x), ofRandom(-wh.y, wh.y)) * 2.0f;
         m_stars[i].radius = ofRandom(0.1f, 1.5f);
     }
-    m_lastCameraPosition = Camera::mainCamera().transform.position;
-    transform.position = m_lastCameraPosition;
-	transform.scale = Camera::mainCamera().transform.scale;
+    m_lastClickPosition = Camera::mainCamera().transform.position;
+    transform.position = m_lastClickPosition;
 }
 
 void StarBackground::update(float dt) {
-	transform.position += (Camera::mainCamera().transform.position - m_lastCameraPosition) * 0.5f; 
-	m_lastCameraPosition = Camera::mainCamera().transform.position;
-
+    transform.position = lerp(transform.position, m_targetPosition, 2.0f * dt);
+	//m_lastClickPosition = Camera::mainCamera().transform.position;
+    //transform.rotation = Camera::mainCamera().transform.rotation;
+    transform.scale = 1 / Camera::mainCamera().transform.scale;
     auto windowSize = Camera::mainCamera().halfScreenSize();
 	for (auto& it : m_stars) {
         //it.isInsideWindow(windowSize, transform.position);
@@ -41,10 +53,15 @@ void StarBackground::update(float dt) {
 void StarBackground::draw() {
     ofPushMatrix();       
 	//essa merda não funciona
-	//DEBUG_VEC((transform.position * Camera::mainCamera().transform.scale));
-	ofTranslate(transform.position);
-	ofRotateZ(RAD_TO_DEG * transform.rotation);
-	ofScale(1 /transform.scale, 1 / transform.scale);
+
+    /*ofTranslate(m_halfWindowSize);
+    ofRotateZ(RAD_TO_DEG * transform.rotation);
+    ofScale(transform.scale, transform.scale);
+    ofTranslate(-transform.position);*/
+
+    ofTranslate(Camera::mainCamera().transform.position);
+    ofScale(transform.scale, transform.scale);	
+    ofTranslate(-transform.position);
 
     for (auto& it : m_stars) {
 		ofSetColor(255, it.alpha);

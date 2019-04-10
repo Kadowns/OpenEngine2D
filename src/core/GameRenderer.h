@@ -11,8 +11,8 @@ public:
 
     static void setup();
     static void draw();
-    static void add(IRenderable* renderer);
-    static void remove(IRenderable* renderer);
+    static void add(IRenderable* renderer, bool overlay = false);
+    static void remove(IRenderable* renderer, bool overlay = false);
 
 private:
 
@@ -21,6 +21,6 @@ private:
 
     static void sortLayers();
 
-    static std::vector<IRenderable*> m_renderers;
+    static std::vector<IRenderable*> m_renderers, m_overlay;
 
 };
