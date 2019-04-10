@@ -17,9 +17,7 @@ float CircleCollider::getRadius() const {
 
 void CircleCollider::tryCollision(Collider* other) {
     auto circle = dynamic_cast<CircleCollider*>(other);
-    if (circle != nullptr) {
-
-        
+    if (circle != nullptr) {      
         if (CircleCollider::circleVsCircle(this, circle)) {
 
             if (p_rb != nullptr && circle->p_rb != nullptr) {

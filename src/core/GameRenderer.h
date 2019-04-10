@@ -14,6 +14,9 @@ public:
     static void add(IRenderable* renderer, bool overlay = false);
     static void remove(IRenderable* renderer, bool overlay = false);
 
+	template<typename T>
+	static std::vector<T*> search();
+
 private:
 
 
@@ -24,3 +27,15 @@ private:
     static std::vector<IRenderable*> m_renderers, m_overlay;
 
 };
+
+template<typename T>
+inline std::vector<T*> GameRenderer::search() {
+	std::vector<T*> found;
+	for (auto& it : m_renderers) {
+		auto isT = dynamic_cast<T*>(it);
+		if (isT) {
+			found.push_back(isT);
+		}
+	}
+	return found;
+}
