@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../core/Event.h"
 #include "../core/GameObject.h"
 #include "../core/IRenderable.h"
 
@@ -24,16 +23,13 @@ public:
     StarBackground(size_t starCount);
     ~StarBackground();
 
-    void onMouseClicked(int x, int y);
 
 
 private:
 
-    ofVec2f m_lastClickPosition, m_targetPosition;
+    ofVec2f m_lastCameraPosition, m_targetPosition;
 
     std::vector<Star> m_stars;
-
-    Event<int, int>::EventListener m_onMouseClickCallback;
 
     // Inherited via GameObject
     virtual void setup() override;

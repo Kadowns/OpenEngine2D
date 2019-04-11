@@ -4,6 +4,7 @@
 #include "../core/Timer.h"
 #include "../core/Camera.h"
 #include "../core/GameRenderer.h"
+
 StarBackground::StarBackground(size_t starCount) {
     m_stars.resize(starCount);
     m_layerOrder = 255;
