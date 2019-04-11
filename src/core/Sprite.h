@@ -23,4 +23,8 @@ private:
     GameObject* m_attached;
     ofImage* m_image;
 
+
+	// Inherited via IRenderable
+	inline virtual ofVec2f position() const override;
+
 };

@@ -1,11 +1,12 @@
 #include "GameRenderer.h"
+
 #include <algorithm>
 
+#include "EventManager.h"
 #include "IRenderable.h"
 #include "Camera.h"
 
 std::vector<IRenderable*> GameRenderer::m_renderers;
-std::vector<IRenderable*> GameRenderer::m_overlay;
 Camera* GameRenderer::m_camera;
 
 void GameRenderer::setup() {
@@ -14,9 +15,6 @@ void GameRenderer::setup() {
 
 void GameRenderer::draw() {	
 
-    for (auto& it : m_overlay) {
-        it->draw();
-    }
     m_camera->bind();
     for (auto& it : m_renderers) {
         it->draw();
@@ -24,24 +22,16 @@ void GameRenderer::draw() {
     m_camera->unbind();
 }
 
-void GameRenderer::add(IRenderable* renderer, bool overlay) {
-    if (overlay) {
-        m_overlay.push_back(renderer);
-    }
-    else {
-        m_renderers.push_back(renderer);
-    }    
-    sortLayers();
+void GameRenderer::add(IRenderable* renderer) {
+	m_renderers.push_back(renderer);
+	sortLayers();
+	EventManager::onRendarableCreated(renderer);
 }
 
-void GameRenderer::remove(IRenderable* renderer, bool overlay) {
-    if (overlay) {
-        m_overlay.erase(std::remove(m_overlay.begin(), m_overlay.end(), renderer));
-    }
-    else {
-        m_renderers.erase(std::remove(m_renderers.begin(), m_renderers.end(), renderer));
-    }
-    sortLayers();
+void GameRenderer::remove(IRenderable* renderer) {
+	m_renderers.erase(std::remove(m_renderers.begin(), m_renderers.end(), renderer));
+	sortLayers();
+	EventManager::onRendarableDestroyed(renderer);
 }
 
 void GameRenderer::sortLayers() {

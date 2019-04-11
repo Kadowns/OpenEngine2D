@@ -18,7 +18,7 @@ Sprite::~Sprite() {
 
 void Sprite::draw() {
     ofPushMatrix();
-    ofTranslate(m_attached->transform.position);
+    ofTranslate(position());
     ofRotateZ(ofRadToDeg(m_attached->transform.rotation));
     ofScale(m_attached->transform.scale, m_attached->transform.scale);
     m_image->draw(0, 0);
@@ -31,4 +31,8 @@ float Sprite::getWidth() {
 
 float Sprite::getHeight() {
     return m_image->getHeight();
+}
+
+ofVec2f Sprite::position() const {
+	return m_attached->transform.position;
 }

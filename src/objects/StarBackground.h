@@ -34,8 +34,8 @@ private:
     // Inherited via GameObject
     virtual void setup() override;
     virtual void update(float dt) override;
-
+	
     //Inherited via IRenderable
     virtual void draw() override;
-
+	inline virtual ofVec2f position() const override;
 };

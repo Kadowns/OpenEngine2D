@@ -4,6 +4,9 @@
 
 #include "Event.h"
 
+class IRenderable;
+class GameObject;
+
 class EventManager {
 
 public:
@@ -14,5 +17,11 @@ public:
     static Event<int, int> onMouseDragged;
     static Event<int, int, float, float> onMouseScrolled;
     static Event<int, int> onWindowResized;
+
+	static Event<IRenderable*> onRendarableCreated;
+	static Event<IRenderable*> onRendarableDestroyed;
+	static Event<GameObject*> onObjectCreated;
+	static Event<GameObject*> onObjectDestroyed;
+
 
 };

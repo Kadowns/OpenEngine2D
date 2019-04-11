@@ -38,6 +38,10 @@ void StarBackground::update(float dt) {
 	}   
 }
 
+ofVec2f StarBackground::position() const {
+	return transform.position;
+}
+
 void StarBackground::draw() {
     ofPushMatrix();       
 	ofTranslate(Camera::mainCamera().transform.position);

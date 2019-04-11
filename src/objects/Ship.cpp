@@ -12,7 +12,7 @@
 
 Ship::Ship(const int& playerNumber, const ofVec2f& position, TEAM team) {
     m_sprite = new Sprite(this, "ship");	
-    m_rb = new Rigidbody2D(&transform, 1, 0.7f, 0.4f, 0.0f);
+    m_rb = new Rigidbody2D(&transform, 1, 7.0f, 2.5f, 0.0f);
     m_collider = new CircleCollider(this, &transform, m_rb, 65);
     m_team = team;
 	transform.position = position;

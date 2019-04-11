@@ -4,6 +4,8 @@
 #include "../core/Camera.h"
 #include "../core/Event.h"
 
+class Ship;
+
 class CameraController : public GameObject {
 public:
 
@@ -21,6 +23,8 @@ private:
     Event<int, int>::EventListener m_onMouseDragCallback;
     Event<int, int, float, float>::EventListener m_onMouseScrollCallback;
 
+
+	Ship* m_defaultTarget;
     ofVec2f m_target;
     float m_dragDelta = 0, m_targetRotation = 0, m_scrollAmount = 1, m_smootSpeed = 2.0f;
    
