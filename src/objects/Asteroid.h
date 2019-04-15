@@ -19,16 +19,19 @@ public:
     ~Asteroid();
 
     void onCollisionWith(GameObject* other);
+    void applyDamage(ofVec2f direction);
     void destroy();
 
 private:
 
     Event<GameObject*>::EventListener m_onCollisionWithCallback;
 
-    ASTEROID_TYPE m_type;
+    ASTEROID_TYPE m_type; 
     Sprite* m_sprite;
     Rigidbody2D* m_rb;
     Collider* m_collider;
+
+    int m_hitPoints;
 
 
     // Inherited via GameObject

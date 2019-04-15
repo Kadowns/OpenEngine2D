@@ -14,8 +14,10 @@ Asteroid::Asteroid(const ofVec2f & position, const ofVec2f & initialVelocity, fl
     switch (m_type) {
     case BIG:
         transform.scale = 4.0f;
+        m_hitPoints = 10;
         break;
     case SMALL:
+        m_hitPoints = 4;
         transform.scale = 1.5f;
         break;
     }
@@ -23,10 +25,10 @@ Asteroid::Asteroid(const ofVec2f & position, const ofVec2f & initialVelocity, fl
 
 
     m_sprite = new Sprite(this, "asteroid");
-    m_rb = new Rigidbody2D(&transform, 5.0f, 0, 0, 0.5f);
-    m_rb->addForce(initialVelocity, Rigidbody2D::IMPULSE);
-    m_rb->addTorque(initialAngularVelocity, Rigidbody2D::IMPULSE);
-    m_collider = new CircleCollider(this, &transform, m_rb, 1 * transform.scale);
+    m_rb = new Rigidbody2D(&transform, 10.0f, 0, 0, 0.4f);
+    m_rb->addForce(initialVelocity, Rigidbody2D::VELOCITY_CHANGE);
+    m_rb->addTorque(initialAngularVelocity, Rigidbody2D::VELOCITY_CHANGE);
+    m_collider = new CircleCollider(this, &transform, m_rb, 15 * transform.scale);
     m_onCollisionWithCallback = [this](GameObject* other) {
         this->onCollisionWith(other);
     };
@@ -44,9 +46,19 @@ Asteroid::~Asteroid() {
 void Asteroid::onCollisionWith(GameObject* other) {
     auto ship = dynamic_cast<Ship*>(other);
     if (ship != nullptr) {
-        GameManager::instance().destroy(ship);
-        destroy();
+        //GameManager::instance().destroy(ship);
+        //destroy();
     }    
+}
+
+void Asteroid::applyDamage(ofVec2f direction) {
+    m_hitPoints--;
+    if (m_hitPoints <= 0) {
+        destroy();
+        return;
+    }
+
+    m_rb->addForce(direction * 20, Rigidbody2D::IMPULSE);
 }
 
 void Asteroid::destroy() {
@@ -55,7 +67,7 @@ void Asteroid::destroy() {
         for (size_t i = 0; i < asteroidsToSpawn; i++) {
 			float percent = (float)i / asteroidsToSpawn;
             ofVec2f direction = ofVec2f(cos(percent * 360 * DEG_TO_RAD), sin(percent * 360 * DEG_TO_RAD));
-            GameManager::instance().add(new Asteroid(transform.position + direction * 20, direction * ofRandom(80, 160), ofRandom(-180, 180), SMALL));
+            GameManager::instance().add(new Asteroid(transform.position + direction * 20, direction * ofRandom(180, 360), ofRandom(-45, 45), SMALL));
         }
     }
     GameManager::instance().destroy(this);

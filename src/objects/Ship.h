@@ -6,6 +6,7 @@
 class Sprite;
 class Collider;
 class Rigidbody2D;
+class ThrusterParticles;
 
 class Ship : public GameObject, public Team {
 private:
@@ -13,6 +14,8 @@ private:
 	Sprite* m_sprite;
     Collider* m_collider;
     Rigidbody2D* m_rb;
+    ThrusterParticles* m_thruster;
+
 	float m_speed = 7450.0f;
 	float m_fireDelay = 0.05f, m_lastFire = 0;	
     float m_missileDelay = 0.5f, m_lastMissile = 0;

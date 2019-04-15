@@ -1,7 +1,7 @@
 #pragma once
 #include "ofVec2f.h"
 
-class IRenderable {
+class Renderable {
 
 protected:
 

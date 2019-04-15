@@ -10,20 +10,20 @@ DebugSquare::DebugSquare() {
 	m_layerOrder = 0;
 	GameRenderer::add(this);
 
-	m_renderers = GameRenderer::search<IRenderable>();
+	m_renderers = GameRenderer::search<Renderable>();
 
 	//callback de criação
-	m_onRenderableCreatedCallback = [this](IRenderable* renderer) {
+	m_onRenderableCreatedCallback = [this](Renderable* renderer) {
 		this->onRendererCreated(renderer);
 	};
-	EventManager::onRendarableCreated += &m_onRenderableCreatedCallback;
+	EventManager::onRenderableCreated += &m_onRenderableCreatedCallback;
 
 
 	//callback de destruição
-	m_onRenderableDestroyedCallback = [this](IRenderable* renderer) {
+	m_onRenderableDestroyedCallback = [this](Renderable* renderer) {
 		this->onRendererDestroyed(renderer);
 	};
-	EventManager::onRendarableDestroyed += &m_onRenderableDestroyedCallback;
+	EventManager::onRenderableDestroyed += &m_onRenderableDestroyedCallback;
 
 	m_onMouseMoveCallback = [this](int x, int y) {
 		this->onMouseMove(x, y);
@@ -32,17 +32,17 @@ DebugSquare::DebugSquare() {
 }
 
 DebugSquare::~DebugSquare() {
-	EventManager::onRendarableCreated -= &m_onRenderableCreatedCallback;
-	EventManager::onRendarableDestroyed -= &m_onRenderableDestroyedCallback;
+	EventManager::onRenderableCreated -= &m_onRenderableCreatedCallback;
+	EventManager::onRenderableDestroyed -= &m_onRenderableDestroyedCallback;
 	EventManager::onMouseMove -= &m_onMouseMoveCallback;
 	GameRenderer::remove(this);
 }
 
-void DebugSquare::onRendererCreated(IRenderable* renderer) {
+void DebugSquare::onRendererCreated(Renderable* renderer) {
 	m_renderers.push_back(renderer);
 }
 
-void DebugSquare::onRendererDestroyed(IRenderable* renderer) {
+void DebugSquare::onRendererDestroyed(Renderable* renderer) {
 	m_renderers.erase(std::remove(m_renderers.begin(), m_renderers.end(), renderer));
 }
 
@@ -62,7 +62,7 @@ bool DebugSquare::intersects(const ofVec2f& mouse, const ofRectangle& rect) cons
 	if (rect.getBottom() < mouse.y || rect.getTop() > mouse.y) {
 		return false;
 	}
-	if (rect.getRight() < mouse.x || rect.getLeft() > mouse.x) {
+	if (rect.getMaxX() < mouse.x || rect.getLeft() > mouse.x) {
 		return false;
 	}
 	return true;

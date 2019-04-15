@@ -2,7 +2,7 @@
 
 #include <vector>
 
-class IRenderable;
+class Renderable;
 struct Camera;
 
 class GameRenderer {
@@ -11,8 +11,8 @@ public:
 
     static void setup();
     static void draw();
-    static void add(IRenderable* renderer);
-    static void remove(IRenderable* renderer);
+    static void add(Renderable* renderer);
+    static void remove(Renderable* renderer);
 
 	template<typename T>
 	static std::vector<T*> search();
@@ -24,7 +24,7 @@ private:
 
     static void sortLayers();
 
-    static std::vector<IRenderable*> m_renderers;
+    static std::vector<Renderable*> m_renderers;
 
 };
 

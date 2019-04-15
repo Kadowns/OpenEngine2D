@@ -12,6 +12,7 @@
 
 #include "Ship.h"
 #include "Asteroid.h"
+#include "ExplosionParticle.h"
 
 Bullet::Bullet(const ofVec2f& position, const float& rotation, TEAM team) {
     transform.position = position;
@@ -46,10 +47,10 @@ void Bullet::onCollisionWith(GameObject* other) {
     }
 
     auto asteroid = dynamic_cast<Asteroid*>(other);
-    if (asteroid != nullptr) {
-        printf("Bullet id:%d bateu no asteroide com id:%d\n", getId(), other->getId());
-        asteroid->destroy();
+    if (asteroid != nullptr) {        
+        asteroid->applyDamage((asteroid->transform.position - transform.position).getNormalized());
         GameManager::instance().destroy(this);
+        GameManager::instance().add(new ExplosionParticle(0.1f, transform.position, 10.0f, 100));
     }    
 }
 

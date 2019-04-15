@@ -3,34 +3,34 @@
 #include <vector>
 
 #include "../core/GameObject.h"
-#include "../core/IRenderable.h"
+#include "../core/Renderable.h"
 #include "../core/EventManager.h"
 
-class DebugSquare : public GameObject, public IRenderable {
+class DebugSquare : public GameObject, public Renderable {
 
 public:
 
 	DebugSquare();
 	~DebugSquare();
 
-	void onRendererCreated(IRenderable* renderer);
-	void onRendererDestroyed(IRenderable* renderer);
+	void onRendererCreated(Renderable* renderer);
+	void onRendererDestroyed(Renderable* renderer);
 	void onMouseMove(int x, int y);
 
 
 private:
 
-	std::vector<IRenderable*> m_renderers;
+	std::vector<Renderable*> m_renderers;
 	Event<int, int>::EventListener m_onMouseMoveCallback;
-	Event<IRenderable*>::EventListener m_onRenderableCreatedCallback;
-	Event<IRenderable*>::EventListener m_onRenderableDestroyedCallback;
+	Event<Renderable*>::EventListener m_onRenderableCreatedCallback;
+	Event<Renderable*>::EventListener m_onRenderableDestroyedCallback;
 
 	ofVec2f m_mousePosition;
 	ofRectangle m_rect;
 
 	bool intersects(const ofVec2f& mouse, const ofRectangle& rect) const;
 
-	// Inherited via IRenderable
+	// Inherited via Renderable
 	virtual void draw() override;
 	virtual ofVec2f position() const override;
 

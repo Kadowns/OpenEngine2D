@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../core/GameObject.h"
-#include "../core/IRenderable.h"
+#include "../core/Renderable.h"
 
 struct Star {
     Star();
@@ -16,7 +16,7 @@ struct Star {
 };
 
 
-class StarBackground : public GameObject, public IRenderable {
+class StarBackground : public GameObject, public Renderable {
 
 public:
 
@@ -35,7 +35,7 @@ private:
     virtual void setup() override;
     virtual void update(float dt) override;
 	
-    //Inherited via IRenderable
+    //Inherited via Renderable
     virtual void draw() override;
 	inline virtual ofVec2f position() const override;
 };

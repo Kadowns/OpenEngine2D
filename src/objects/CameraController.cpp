@@ -6,8 +6,12 @@
 
 #include "Ship.h"
 
+CameraController* CameraController::s_instance = nullptr;
+
 CameraController::CameraController() {
     
+    s_instance = this;
+
     m_onMousePressedCallback = [this](int x, int y) {
         if (InputManager::getButtonPressed("leftMouse")) {
             this->onMousePressed(x, y);
@@ -32,6 +36,7 @@ CameraController::CameraController() {
 }
 
 CameraController::~CameraController() {    
+    s_instance = nullptr;
     EventManager::onMousePressed -= &m_onMousePressedCallback;
     EventManager::onMouseDragged -= &m_onMouseDragCallback;
     EventManager::onMouseScrolled -= &m_onMouseScrollCallback;
@@ -60,6 +65,18 @@ void CameraController::onMouseScroll(int x, int y, float scroll) {
     }
 }
 
+void CameraController::shake(float duration, float intensity) {
+    m_shake.timer = 0;
+    m_shake.duration = duration;
+    m_shake.intensity = intensity;
+    m_shake.initialIntensity = intensity;
+    m_shake.shaking = true;    
+}
+
+CameraController& CameraController::instance() {
+    return *s_instance;
+}
+
 void CameraController::setup() {
     m_target = Camera::mainCamera().transform.position;
 
@@ -74,4 +91,15 @@ void CameraController::update(float dt) {
 	Camera::mainCamera().transform.position = lerp(Camera::mainCamera().transform.position, m_target, m_smootSpeed * dt);
 	Camera::mainCamera().transform.scale = ofLerp(Camera::mainCamera().transform.scale, m_scrollAmount, m_smootSpeed * dt);
 	Camera::mainCamera().transform.rotation = ofLerp(Camera::mainCamera().transform.rotation, m_targetRotation, m_smootSpeed * dt);
+
+    if (m_shake.shaking) {
+        m_shake.timer += dt;
+        Camera::mainCamera().transform.position += ofVec2f(ofRandom(-1, 1), ofRandom(-1, 1)) * m_shake.intensity;
+        Camera::mainCamera().transform.rotation += ofRandom(-1, 1) * m_shake.intensity * DEG_TO_RAD;
+        m_shake.intensity = ofLerp(m_shake.initialIntensity, 0, m_shake.timer / m_shake.duration);
+        if (m_shake.timer > m_shake.duration) {
+            m_shake.shaking = false;
+        }
+    }
+
 }

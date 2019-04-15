@@ -19,7 +19,7 @@ void CircleCollider::tryCollision(Collider* other) {
     auto circle = dynamic_cast<CircleCollider*>(other);
     if (circle != nullptr) {      
         if (CircleCollider::circleVsCircle(this, circle)) {
-
+            
             if (p_rb != nullptr && circle->p_rb != nullptr) {
 
                 float r = m_radius + circle->m_radius;
@@ -46,7 +46,10 @@ void CircleCollider::tryCollision(Collider* other) {
 
                 ofVec2f impulse = j * normal;
 
+                printf("Impulse:%d, %d\n", impulse.x, impulse.y);
                 float ratio = inverseMassA / massSum;
+
+                printf("Impulse ratio:%d, %d\n", impulse.x * ratio, impulse.y * ratio);
                 p_rb->addForce(impulse * ratio, Rigidbody2D::IMPULSE);
 
                 ratio = inverseMassB / massSum;

@@ -8,14 +8,21 @@
 
 #include "Bullet.h"
 #include "Missile.h"
+#include "CameraController.h"
+#include "ThrusterParticles.h"
 
 
 Ship::Ship(const int& playerNumber, const ofVec2f& position, TEAM team) {
+    
+    transform.position = position;
+
+    m_team = team;
     m_sprite = new Sprite(this, "ship");	
     m_rb = new Rigidbody2D(&transform, 1, 7.0f, 2.5f, 0.0f);
     m_collider = new CircleCollider(this, &transform, m_rb, 65);
-    m_team = team;
-	transform.position = position;
+    m_thruster = new ThrusterParticles(transform.position, 100, transform.getRight(), 0.05f);
+    GameManager::instance().add(m_thruster);
+    
 	auto number = std::to_string(playerNumber);
     m_buttonRight = "turnright" + number;
     m_buttonLeft = "turnleft" + number;
@@ -45,19 +52,23 @@ void Ship::update(float dt) {
 
 	if (InputManager::getButtonDown(m_buttonForward)) {        
         m_rb->addForce(transform.getRight() * m_speed);
-	}
+        m_thruster->transform.position = transform.position;
+        m_thruster->setDirection(-transform.getRight());
+        m_thruster->play();
+    }
+    else if (InputManager::getButtonReleased(m_buttonForward)) {
+        m_thruster->stop();
+    }
 	if (InputManager::getButtonDown(m_buttonBackward)) {        
         m_rb->addForce(-transform.getRight() * m_speed);
 	}
-
-    //auto screenPos = Camera::mainCamera().worldToScreen(transform.position);
-    //printf("world pos: x:%f, y:%f\n", screenPos.x, screenPos.y);
 
 	m_lastFire += dt;
 	if (InputManager::getButtonDown(m_buttonFire) && m_lastFire > m_fireDelay) {
         transform.position += -transform.getRight();
         m_rb->addForce(-transform.getRight() * 25, Rigidbody2D::IMPULSE);
 		GameManager::instance().add(new Bullet(transform.position + transform.getRight() * 80, transform.rotation, m_team));
+        CameraController::instance().shake(0.5f, 1.0f);
 		m_lastFire = 0;
 	}
 

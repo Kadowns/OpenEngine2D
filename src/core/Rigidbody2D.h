@@ -7,7 +7,9 @@ public:
 
     enum FORCE_MODE {
         ACCELERATION,
-        IMPULSE
+        IMPULSE,
+        FORCE,
+        VELOCITY_CHANGE
     };
 
     Rigidbody2D(Transform2D* pTransform, float mass, float drag = 0, float angularDrag = 0, float restitution = 0);

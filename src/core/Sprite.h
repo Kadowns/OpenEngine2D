@@ -2,11 +2,11 @@
 
 #include "ofImage.h"
 
-#include "IRenderable.h"
+#include "Renderable.h"
 
 class GameObject;
 
-class Sprite : IRenderable {
+class Sprite : Renderable {
 public:
 
     Sprite(GameObject* attached, const char* imageName);
@@ -24,7 +24,7 @@ private:
     ofImage* m_image;
 
 
-	// Inherited via IRenderable
+	// Inherited via Renderable
 	inline virtual ofVec2f position() const override;
 
 };

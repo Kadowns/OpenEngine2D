@@ -58,6 +58,7 @@ void AsteroidManager::spawnAsteroid() {
 	}
 
 	spawnPosition *= 1/Camera::mainCamera().transform.scale;
+    spawnPosition.rotate(Camera::mainCamera().transform.rotation);
 	ofVec2f velocity = (m_target->transform.position - spawnPosition).normalized() * ofRandom(100, 700);	
 	float angularVelocity = ofRandom(-360, 360) * DEG_TO_RAD;
 

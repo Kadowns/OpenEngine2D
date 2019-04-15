@@ -22,6 +22,12 @@ void Rigidbody2D::addForce(const ofVec2f& force, FORCE_MODE mode) {
     case IMPULSE:
         m_velocity += force / m_mass;
         break;
+    case FORCE:
+        m_acceleration += force;
+        break;
+    case VELOCITY_CHANGE:
+        m_velocity += force;
+        break;
     }    
 }
 
@@ -33,6 +39,12 @@ void Rigidbody2D::addTorque(const float& torque, FORCE_MODE mode) {
         break;
     case IMPULSE:
         m_angularVelocity += torque / m_mass;
+        break;
+    case FORCE:
+        m_angularAcceleration += torque;
+        break;
+    case VELOCITY_CHANGE:
+        m_angularVelocity += torque;
         break;
     }
 }
