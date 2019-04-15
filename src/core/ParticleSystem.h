@@ -25,13 +25,20 @@ class ParticleSystem : public GameObject, public Renderable {
 
 public:
 
-    ParticleSystem(const ofVec2f& position, const uint8_t& maxParticles);
+    enum SIMULATION_SPACE {
+        LOCAL,
+        GLOBAL
+    };
+
+    ParticleSystem(const ofVec2f& position, const uint8_t& maxParticles, bool startOnAwake = true, SIMULATION_SPACE space = LOCAL);
     virtual ~ParticleSystem();
 
     void play();
     void stop();
 
 protected:   
+
+    SIMULATION_SPACE m_space;
 
     std::list<Particle*> m_activeParticles, m_deactivatedParticles;
     bool m_isPlaying = false;

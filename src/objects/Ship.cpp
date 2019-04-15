@@ -20,7 +20,7 @@ Ship::Ship(const int& playerNumber, const ofVec2f& position, TEAM team) {
     m_sprite = new Sprite(this, "ship");	
     m_rb = new Rigidbody2D(&transform, 1, 7.0f, 2.5f, 0.0f);
     m_collider = new CircleCollider(this, &transform, m_rb, 65);
-    m_thruster = new ThrusterParticles(transform.position, 100, transform.getRight(), 0.05f);
+    m_thruster = new ThrusterParticles(transform.position, 250, transform.getRight(), 0.01f);
     GameManager::instance().add(m_thruster);
     
 	auto number = std::to_string(playerNumber);
@@ -50,10 +50,11 @@ void Ship::update(float dt) {
         m_rb->addTorque(-DEG_TO_RAD * 360);
 	}	
 
-	if (InputManager::getButtonDown(m_buttonForward)) {        
-        m_rb->addForce(transform.getRight() * m_speed);
-        m_thruster->transform.position = transform.position;
-        m_thruster->setDirection(-transform.getRight());
+	if (InputManager::getButtonDown(m_buttonForward)) {  
+        auto right = transform.getRight();
+        m_rb->addForce(right * m_speed);
+        m_thruster->transform.position = transform.position - right * 40;
+        m_thruster->setDirection(-right);
         m_thruster->play();
     }
     else if (InputManager::getButtonReleased(m_buttonForward)) {

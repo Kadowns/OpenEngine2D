@@ -21,7 +21,7 @@ Bullet::Bullet(const ofVec2f& position, const float& rotation, TEAM team) {
     m_team = team;
     m_sprite = new Sprite(this, "bullet");
 
-    m_collider = new CircleCollider(this, &transform, nullptr, 50);
+    m_collider = new CircleCollider(this, &transform, nullptr, 20);
     
 
     m_onCollisionCallback = [this](GameObject* go) {
@@ -50,7 +50,7 @@ void Bullet::onCollisionWith(GameObject* other) {
     if (asteroid != nullptr) {        
         asteroid->applyDamage((asteroid->transform.position - transform.position).getNormalized());
         GameManager::instance().destroy(this);
-        GameManager::instance().add(new ExplosionParticle(0.1f, transform.position, 10.0f, 100));
+        GameManager::instance().add(new ExplosionParticle(transform.position, 50, 50, 5.0f));
     }    
 }
 

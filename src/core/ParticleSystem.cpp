@@ -2,14 +2,17 @@
 
 #include "GameRenderer.h"
 
-ParticleSystem::ParticleSystem(const ofVec2f & position, const uint8_t & maxParticles) {
+ParticleSystem::ParticleSystem(const ofVec2f & position, const uint8_t & maxParticles, bool startOnAwake, SIMULATION_SPACE space) {
     
     for (auto i = 0; i < maxParticles; i++) {
         m_particlesPool.emplace(new Particle());
     }
+    m_space = space;
     m_maxParticles = maxParticles;
     transform.position = position;
-    play();
+    if (startOnAwake) {
+        play();
+    }
     GameRenderer::add(this);
 }
 
@@ -59,7 +62,10 @@ ofVec2f ParticleSystem::position() const {
 
 void ParticleSystem::draw() {
     ofPushMatrix();
-    ofTranslate(transform.position);
+
+    if (m_space == LOCAL) {
+        ofTranslate(transform.position);
+    } 
     ofRotate(transform.rotation);
     ofScale(transform.scale, transform.scale);
     for (auto it : m_activeParticles) {
