@@ -1,6 +1,91 @@
+###########################
+# ignore generated binaries
+# but not the data folder
+###########################
 
+*/bin/*
+!*/bin/data/
 
-*.vcxproj
-*.vcxproj.*
-*.make
+#########
+# general
+#########
+
+*/[Bb]uild/
+*/[Oo]bj/
+*.o
+*/[Dd]ebug*/
+*/[Rr]elease*/
+.vs*/
+*.mode*
+*.app/
+*.pyc
+.svn/
+*.log
+*.dll
+*.exe
+*.exp
+*.lib
+
+########################
+# IDE files which should
+# be ignored
+########################
+
+# XCode
+*.pbxuser
+*.perspective
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+# XCode 4
+xcuserdata
+*.xcworkspace
+
+# Code::Blocks
+*.depend
+*.layout
+
+# Visual Studio
+*.sdf
+*.opensdf
+*.suo
+*.sln
+*.db
+*.pdb
+*.ilk
+*.aps
+*.vcxproj*
 *.rc
+*.make
+ipch/
+
+# Eclipse
+.metadata
+local.properties
+.externalToolBuilders
+
+##################
+# operating system
+##################
+
+# Linux
+*~
+# KDE
+.directory
+.AppleDouble
+
+# OSX
+.DS_Store
+*.swp
+*~.nib
+# Thumbnails
+._*
+
+# Windows
+# Image file caches
+Thumbs.db
+# Folder config file
+Desktop.ini
+
+# Android
+.csettings
