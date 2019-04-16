@@ -8,6 +8,7 @@
 
 #include "Bullet.h"
 #include "Missile.h"
+#include "Asteroid.h"
 #include "CameraController.h"
 #include "ThrusterParticles.h"
 
@@ -18,10 +19,16 @@ Ship::Ship(const int& playerNumber, const ofVec2f& position, TEAM team) {
 
     m_team = team;
     m_sprite = new Sprite(this, "ship");	
-    m_rb = new Rigidbody2D(&transform, 1, 7.0f, 2.5f, 0.0f);
+    m_rb = new Rigidbody2D(&transform, 1, 2.0f, 1.5f, 0.0f);
     m_collider = new CircleCollider(this, &transform, m_rb, 65);
     m_thruster = new ThrusterParticles(transform.position, 250, transform.getRight(), 0.01f);
     GameManager::instance().add(m_thruster);
+
+
+	m_onCollisionWithCallback = [this](GameObject* other) {
+		this->onCollisionWith(other);
+	};
+	m_collider->onCollisionWith += &m_onCollisionWithCallback;
     
 	auto number = std::to_string(playerNumber);
     m_buttonRight = "turnright" + number;
@@ -33,9 +40,23 @@ Ship::Ship(const int& playerNumber, const ofVec2f& position, TEAM team) {
 }
 
 Ship::~Ship() {	
+	m_collider->onCollisionWith -= &m_onCollisionWithCallback;
     delete m_collider;
     delete m_sprite;
     delete m_rb;
+}
+
+void Ship::onCollisionWith(GameObject* other) {
+	auto asteroid = dynamic_cast<Asteroid*>(other);
+	if (asteroid != nullptr) {
+		asteroid->destroy();
+		m_rb->addForce((transform.position - asteroid->transform.position).getNormalized() * 300, Rigidbody2D::IMPULSE);
+		CameraController::instance().shake(1.0f, 1.5f);
+	}
+}
+
+ofVec2f Ship::getVelocity() const {
+	return m_rb->getVelocity();
 }
 
 void Ship::setup() {	

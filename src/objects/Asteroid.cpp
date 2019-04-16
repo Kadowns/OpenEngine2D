@@ -8,7 +8,7 @@
 #include "Ship.h"
 
 
-Asteroid::Asteroid(const ofVec2f & position, const ofVec2f & initialVelocity, float initialAngularVelocity, ASTEROID_TYPE type) {
+Asteroid::Asteroid(const ofVec2f& position, const ofVec2f& initialVelocity, float initialAngularVelocity, ASTEROID_TYPE type) {
 
     m_type = type;
     switch (m_type) {
@@ -29,26 +29,13 @@ Asteroid::Asteroid(const ofVec2f & position, const ofVec2f & initialVelocity, fl
     m_rb->addForce(initialVelocity, Rigidbody2D::VELOCITY_CHANGE);
     m_rb->addTorque(initialAngularVelocity, Rigidbody2D::VELOCITY_CHANGE);
     m_collider = new CircleCollider(this, &transform, m_rb, 15 * transform.scale);
-    m_onCollisionWithCallback = [this](GameObject* other) {
-        this->onCollisionWith(other);
-    };
-    m_collider->onCollisionWith += &m_onCollisionWithCallback;
     
 }
 
 Asteroid::~Asteroid() {
-    m_collider->onCollisionWith -= &m_onCollisionWithCallback;
     delete m_sprite;
     delete m_rb;
     delete m_collider;
-}
-
-void Asteroid::onCollisionWith(GameObject* other) {
-    auto ship = dynamic_cast<Ship*>(other);
-    if (ship != nullptr) {
-        //GameManager::instance().destroy(ship);
-        //destroy();
-    }    
 }
 
 void Asteroid::applyDamage(ofVec2f direction) {

@@ -18,13 +18,10 @@ public:
     Asteroid(const ofVec2f& position, const ofVec2f& initialVelocity, float initialAngularVelocity, ASTEROID_TYPE type);
     ~Asteroid();
 
-    void onCollisionWith(GameObject* other);
     void applyDamage(ofVec2f direction);
     void destroy();
 
 private:
-
-    Event<GameObject*>::EventListener m_onCollisionWithCallback;
 
     ASTEROID_TYPE m_type; 
     Sprite* m_sprite;

@@ -85,7 +85,7 @@ void CameraController::setup() {
 
 void CameraController::update(float dt) {
 
-	m_target = m_defaultTarget->transform.position;
+	m_target = m_defaultTarget->transform.position + m_defaultTarget->getVelocity();
 	m_targetRotation = -m_defaultTarget->transform.rotation - 90 * DEG_TO_RAD;
 
 	Camera::mainCamera().transform.position = lerp(Camera::mainCamera().transform.position, m_target, m_smootSpeed * dt);
