@@ -22,7 +22,6 @@ ParticleSystem::~ParticleSystem() {
         m_particlesPool.pop();
         delete particle;
     }
-
     GameRenderer::remove(this);
 }
 

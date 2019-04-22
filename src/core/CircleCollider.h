@@ -17,5 +17,6 @@ private:
     float m_radius;
     // Inherited via Collider
     virtual void tryCollision(Collider * other) override;
+    virtual ofRectangle getAABB() override;
 
 };

@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "QuadTree.h"
+
 class Collider;
 class CircleCollider;
 class Rigidbody2D;
@@ -18,7 +20,11 @@ public:
 
     static void update(float dt);    
 
+    static QuadTree<Collider>* getQT();
+
 private:
+
+    static QuadTree<Collider>* m_qt;
 
     static std::vector<Collider*> m_colliders;
     static std::vector<Rigidbody2D*> m_rigidbodies;

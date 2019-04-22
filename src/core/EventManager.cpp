@@ -9,5 +9,5 @@ Event<int, int> EventManager::onWindowResized;
 
 Event<Renderable*> EventManager::onRenderableCreated;
 Event<Renderable*> EventManager::onRenderableDestroyed;
-Event<GameObject*> EventManager::onObjectCreated;
-Event<GameObject*> EventManager::onObjectDestroyed;
+Event<std::weak_ptr<GameObject>> EventManager::onObjectCreated;
+Event<std::weak_ptr<GameObject>> EventManager::onObjectDestroyed;

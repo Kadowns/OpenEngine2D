@@ -1,10 +1,10 @@
 #pragma once
 #include "Transform2D.h"
-#include "GameManager.h"
+#include "ScenePlayer.h"
 
 class GameObject {
 private:
-    friend class GameManager;
+    friend class ScenePlayer;
     void setId(size_t id);
     size_t m_id;
 
@@ -20,6 +20,6 @@ public:
 	virtual void setup() = 0;
 	virtual void update(float dt) = 0;
 
-	virtual ~GameObject() = default;
+    virtual ~GameObject() = default;
 };
 

@@ -20,8 +20,8 @@ public:
 
 	static Event<Renderable*> onRenderableCreated;
 	static Event<Renderable*> onRenderableDestroyed;
-	static Event<GameObject*> onObjectCreated;
-	static Event<GameObject*> onObjectDestroyed;
+	static Event<std::weak_ptr<GameObject>> onObjectCreated;
+	static Event<std::weak_ptr<GameObject>> onObjectDestroyed;
 
 
 };

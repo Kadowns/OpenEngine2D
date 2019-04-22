@@ -22,7 +22,7 @@ private:
     Sprite* m_sprite;
     float m_speed = 600.0f;
 
-    Asteroid* m_target = nullptr;
+    std::weak_ptr<Asteroid> m_target;
 
     //callbacks
     Event<GameObject*>::EventListener m_onCollisionCallback;

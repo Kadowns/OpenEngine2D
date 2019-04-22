@@ -4,7 +4,7 @@
 
 #include "ofGraphics.h"
 
-#include "../core/GameManager.h"
+#include "../core/ScenePlayer.h"
 #include "../core/DataManager.h"
 #include "../core/CircleCollider.h"
 #include "../core/Rigidbody2D.h"
@@ -40,8 +40,8 @@ void Bullet::onCollisionWith(GameObject* other) {
     auto ship = dynamic_cast<Ship*>(other);
     if (ship != nullptr) {
         if (ship->getTeam() != m_team) {
-            GameManager::instance().destroy(ship);
-            GameManager::instance().destroy(this);
+            ScenePlayer::instance().destroy(ship);
+            ScenePlayer::instance().destroy(this);
         }                    
         return;
     }
@@ -49,8 +49,8 @@ void Bullet::onCollisionWith(GameObject* other) {
     auto asteroid = dynamic_cast<Asteroid*>(other);
     if (asteroid != nullptr) {        
         asteroid->applyDamage((asteroid->transform.position - transform.position).getNormalized());
-        GameManager::instance().destroy(this);
-        GameManager::instance().add(new ExplosionParticle(transform.position, 50, 50, 5.0f));
+        ScenePlayer::instance().destroy(this);
+        ScenePlayer::instance().add(new ExplosionParticle(transform.position, 50, 50, 5.0f));
     }    
 }
 
@@ -66,6 +66,6 @@ void Bullet::update(float dt) {
 
     m_timealive += dt;
     if (m_timealive > m_lifetime) {
-        GameManager::instance().destroy(this);
+        ScenePlayer::instance().destroy(this);
     }
 }

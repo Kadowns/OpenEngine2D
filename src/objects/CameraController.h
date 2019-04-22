@@ -30,7 +30,7 @@ private:
     Event<int, int, float, float>::EventListener m_onMouseScrollCallback;
 
 
-	Ship* m_defaultTarget;
+	std::weak_ptr<Ship> m_defaultTarget;
     ofVec2f m_target;
     float m_dragDelta = 0, m_targetRotation = 0, m_scrollAmount = 1, m_smootSpeed = 2.0f;
 

@@ -10,7 +10,7 @@ class Sprite : Renderable {
 public:
 
     Sprite(GameObject* attached, const char* imageName);
-    ~Sprite();
+    virtual ~Sprite();
 
     virtual void draw() override;
 

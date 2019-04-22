@@ -6,6 +6,7 @@
 
 std::vector<Collider*> PhysicsManager::m_colliders;
 std::vector<Rigidbody2D*> PhysicsManager::m_rigidbodies;
+QuadTree<Collider>* PhysicsManager::m_qt = new QuadTree<Collider>(ofRectangle(-5012, -5012, 10024, 10024), 1);
 
 void PhysicsManager::bind(Collider* col) {
     m_colliders.push_back(col);
@@ -30,16 +31,36 @@ void PhysicsManager::update(float dt) {
         it->update(dt);
     }
 
+    m_qt->clear();
+    for (auto& it : m_colliders) {
+        m_qt->insert(QuadTree<Collider>::Point(it->transform().position, it));
+    }
+
     //testa colisões---------------------------------
     for (size_t i = 0; i < m_colliders.size(); i++) {
-        for (size_t j = 0; j < m_colliders.size(); j++) {
+        std::vector<QuadTree<Collider>::Point> found;
+        m_qt->query(m_colliders[i]->getAABB(), found);
+
+        for (size_t j = 0; j < found.size(); j++) {
+            if (m_colliders[i]->transform().position == found[j].position) {
+                continue;
+            }
+            m_colliders[i]->tryCollision(found[j].data);
+        }
+
+        /*for (size_t j = 0; j < m_colliders.size(); j++) {
             if (i <= j) {
                 continue;
             }
             m_colliders[i]->tryCollision(m_colliders[j]);
-        }
+        }*/
     }
+    
     //-----------------------------------------------
+}
+
+QuadTree<Collider>* PhysicsManager::getQT() {
+    return m_qt;
 }
 
 

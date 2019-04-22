@@ -17,7 +17,7 @@ public:
 private:
 
 
-	Ship* m_target = nullptr;
+	std::weak_ptr<Ship> m_target;
 
 	ofVec2f m_windowSize;
 

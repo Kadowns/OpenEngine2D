@@ -46,10 +46,8 @@ void CircleCollider::tryCollision(Collider* other) {
 
                 ofVec2f impulse = j * normal;
 
-                printf("Impulse:%d, %d\n", impulse.x, impulse.y);
                 float ratio = inverseMassA / massSum;
 
-                printf("Impulse ratio:%d, %d\n", impulse.x * ratio, impulse.y * ratio);
                 p_rb->addForce(impulse * ratio, Rigidbody2D::IMPULSE);
 
                 ratio = inverseMassB / massSum;
@@ -60,6 +58,12 @@ void CircleCollider::tryCollision(Collider* other) {
             circle->onCollisionWith(p_gameObject);
         }
     }
+}
+
+ofRectangle CircleCollider::getAABB() {
+    auto rect = ofRectangle();
+    rect.setFromCenter(p_transform->position, m_radius * 4, m_radius * 4);
+    return rect;
 }
 
 bool CircleCollider::circleVsCircle(CircleCollider* a, CircleCollider* b) {

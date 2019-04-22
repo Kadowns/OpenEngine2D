@@ -1,6 +1,6 @@
 #include "Asteroid.h"
 
-#include "../core/GameManager.h"
+#include "../core/ScenePlayer.h"
 #include "../core/Rigidbody2D.h"
 #include "../core/CircleCollider.h"
 #include "../core/Sprite.h"
@@ -54,10 +54,10 @@ void Asteroid::destroy() {
         for (size_t i = 0; i < asteroidsToSpawn; i++) {
 			float percent = (float)i / asteroidsToSpawn;
             ofVec2f direction = ofVec2f(cos(percent * 360 * DEG_TO_RAD), sin(percent * 360 * DEG_TO_RAD));
-            GameManager::instance().add(new Asteroid(transform.position + direction * 20, direction * ofRandom(180, 360), ofRandom(-45, 45), SMALL));
+            ScenePlayer::instance().add(new Asteroid(transform.position + direction * 20, direction * ofRandom(180, 360), ofRandom(-45, 45), SMALL));
         }
     }
-    GameManager::instance().destroy(this);
+    ScenePlayer::instance().destroy(this);
 }
 
 void Asteroid::setup() {   

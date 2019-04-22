@@ -19,8 +19,10 @@ public:
     virtual ~Collider();
 
     virtual void tryCollision(Collider* other) = 0;
+    virtual ofRectangle getAABB() = 0;
 
     GameObject* getGameObject();
+    Transform2D& transform();
 
 protected:
 

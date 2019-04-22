@@ -4,7 +4,7 @@
 
 #include "ofGraphics.h"
 #include "../core/DataManager.h"
-#include "../core/GameManager.h"
+#include "../core/ScenePlayer.h"
 #include "../core/CircleCollider.h"
 #include "../core/Sprite.h"
 
@@ -35,8 +35,8 @@ void Missile::onCollisionWith(GameObject* other) {
     auto ship = dynamic_cast<Ship*>(other);
     if (ship != nullptr) {
         if (ship->getTeam() != m_team) {
-            GameManager::instance().destroy(ship);
-            GameManager::instance().destroy(this);
+            ScenePlayer::instance().destroy(ship);
+            ScenePlayer::instance().destroy(this);
         }        
         return;
     }
@@ -44,7 +44,7 @@ void Missile::onCollisionWith(GameObject* other) {
     auto asteroid = dynamic_cast<Asteroid*>(other);
     if (asteroid != nullptr) {
         asteroid->destroy();
-        GameManager::instance().destroy(this);
+        ScenePlayer::instance().destroy(this);
     }
 }
 
@@ -55,8 +55,9 @@ void Missile::setup() {
 
 void Missile::update(float dt) {    
     transform.position += transform.getRight() * m_speed * dt;
-    if (m_target != nullptr) {
-        auto distance = m_target->transform.position - transform.position;
+    auto target = m_target.lock();
+    if (target) {
+        auto distance = target->transform.position - transform.position;
         auto targetRotation = atan2f(distance.y, distance.x);
         transform.rotation = ofLerpRadians(transform.rotation, targetRotation, 2.5f * dt);
 	}
@@ -66,12 +67,12 @@ void Missile::update(float dt) {
 }
 
 void Missile::searchTargets() {
-	auto asteroids = GameManager::instance().search<Asteroid>();
+	auto asteroids = ScenePlayer::instance().search<Asteroid>();
 
 	float mindist = std::numeric_limits<float>::max();
 	for (auto it : asteroids) {
-
-		float dist = (transform.position - it->transform.position).length();
+        auto target = it.lock();
+		float dist = (transform.position - target->transform.position).length();
 		if (dist < mindist) {
 			m_target = it;
 			mindist = dist;

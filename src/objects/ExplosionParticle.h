@@ -2,6 +2,7 @@
 
 #include "../core/ParticleSystem.h"
 
+class ofSoundPlayer;
 
 class ExplosionParticle : public ParticleSystem {
 public:
@@ -10,6 +11,8 @@ public:
     virtual ~ExplosionParticle();
 
 private:
+
+    ofSoundPlayer* m_audio;
 
     float m_duration, m_timer = 0;    
     uint8_t m_burstCount;

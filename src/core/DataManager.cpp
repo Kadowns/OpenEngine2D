@@ -6,6 +6,7 @@
 
 
 std::map<std::string, ofImage*> DataManager::m_images;
+std::map<std::string, ofSoundPlayer*> DataManager::m_sounds;
 
 void DataManager::unload() {
 	for (auto& it : m_images) {
@@ -19,6 +20,9 @@ void DataManager::loadFiles(std::vector<std::string>& files) {
         auto extension = getFileExtension(file);
         if (extension == ".png" || extension == ".jpg") {
             loadImage(file);
+        }
+        else if (extension == ".mp3" || extension == ".ogg") {
+            loadSound(file);
         }
         else if (extension == ".input") {
             loadInputConfig(file);
@@ -34,6 +38,12 @@ void DataManager::loadImage(const std::string& file) {
         m_images[name]->getHeight() * 0.1f
     );
     m_images[name]->setAnchorPercent(0.5f, 0.5f);
+}
+
+void DataManager::loadSound(const std::string& file) {
+    auto name = getFileName(file);
+    m_sounds[name] = new ofSoundPlayer();
+    m_sounds[name]->load(file);
 }
 
 std::string DataManager::getFileExtension(const std::string& file) {        
@@ -74,6 +84,14 @@ ofImage* DataManager::getImage(const char* name) {
 		return it->second;
 	}
 	return nullptr; 
+}
+
+ofSoundPlayer* DataManager::getSound(const std::string & name) {
+    auto it = m_sounds.find(name);
+    if (it != m_sounds.end()) {
+        return it->second;
+    }
+    return nullptr;
 }
 
 void DataManager::saveInputConfig(const std::map<std::string, int>& buttons, const std::string& filename) {

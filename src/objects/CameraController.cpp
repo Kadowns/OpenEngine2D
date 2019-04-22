@@ -80,14 +80,15 @@ CameraController& CameraController::instance() {
 void CameraController::setup() {
     m_target = Camera::mainCamera().transform.position;
 
-	m_defaultTarget = GameManager::instance().search<Ship>()[0];
+	m_defaultTarget = ScenePlayer::instance().search<Ship>()[0];
 }
 
 void CameraController::update(float dt) {
-
-	m_target = m_defaultTarget->transform.position + m_defaultTarget->getVelocity();
-	m_targetRotation = -m_defaultTarget->transform.rotation - 90 * DEG_TO_RAD;
-
+    auto target = m_defaultTarget.lock();
+    if (target) {
+        m_target = target->transform.position + target->getVelocity();
+        m_targetRotation = -target->transform.rotation - 90 * DEG_TO_RAD;
+    }
 	Camera::mainCamera().transform.position = lerp(Camera::mainCamera().transform.position, m_target, m_smootSpeed * dt);
 	Camera::mainCamera().transform.scale = ofLerp(Camera::mainCamera().transform.scale, m_scrollAmount, m_smootSpeed * dt);
 	Camera::mainCamera().transform.rotation = ofLerp(Camera::mainCamera().transform.rotation, m_targetRotation, m_smootSpeed * dt);

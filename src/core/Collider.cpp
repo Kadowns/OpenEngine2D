@@ -16,3 +16,7 @@ GameObject* Collider::getGameObject() {
     return p_gameObject;
 }
 
+Transform2D& Collider::transform() {
+    return *p_transform;
+}
+

@@ -14,7 +14,6 @@ AsteroidManager::AsteroidManager(float spawnInterval) {
 		this->onWindowResized(x, y);
 	};
 	EventManager::onWindowResized += &m_onWindowResizeCallback;
-
 }
 
 AsteroidManager::~AsteroidManager() {
@@ -27,7 +26,7 @@ void AsteroidManager::onWindowResized(int x, int y) {
 
 
 void AsteroidManager::setup() {
-	m_target = GameManager::instance().search<Ship>()[0];
+	m_target = ScenePlayer::instance().search<Ship>()[0];
 }
 
 void AsteroidManager::update(float dt) {
@@ -40,27 +39,31 @@ void AsteroidManager::update(float dt) {
 
 void AsteroidManager::spawnAsteroid() {
 	
-	ofVec2f spawnPosition;
-	int rand = ofRandom(0, 3);
-	switch (rand) {
-	case 0:
-		spawnPosition = ofVec2f(-m_windowSize.x, ofRandom(0, m_windowSize.y));
-		break;
-	case 1:
-		spawnPosition = ofVec2f(m_windowSize.x, ofRandom(0, m_windowSize.y));
-		break;
-	case 2:
-		spawnPosition = ofVec2f(ofRandom(0, m_windowSize.x), -m_windowSize.y);
-		break;
-	default:
-		spawnPosition = ofVec2f(ofRandom(0, m_windowSize.x), m_windowSize.y);
-		break;
-	}
-    spawnPosition += m_target->transform.position;
-	spawnPosition *= 1/Camera::mainCamera().transform.scale;
-    spawnPosition.rotate(Camera::mainCamera().transform.rotation);
-	ofVec2f velocity = (m_target->transform.position - spawnPosition).normalized() * ofRandom(100, 700);	
-	float angularVelocity = ofRandom(-360, 360) * DEG_TO_RAD;
+    auto target = m_target.lock();
+    if (target) {
+        ofVec2f spawnPosition;
+        int rand = ofRandom(0, 3);
+        switch (rand) {
+        case 0:
+            spawnPosition = ofVec2f(-m_windowSize.x, ofRandom(0, m_windowSize.y));
+            break;
+        case 1:
+            spawnPosition = ofVec2f(m_windowSize.x, ofRandom(0, m_windowSize.y));
+            break;
+        case 2:
+            spawnPosition = ofVec2f(ofRandom(0, m_windowSize.x), -m_windowSize.y);
+            break;
+        default:
+            spawnPosition = ofVec2f(ofRandom(0, m_windowSize.x), m_windowSize.y);
+            break;
+        }
+        spawnPosition *= 1 / Camera::mainCamera().transform.scale;
+        spawnPosition.rotate(Camera::mainCamera().transform.rotation);
+        spawnPosition += target->transform.position;
 
-	GameManager::instance().add(new Asteroid(spawnPosition, velocity, angularVelocity, Asteroid::BIG));
+        ofVec2f velocity = (target->transform.position - spawnPosition).normalized() * ofRandom(100, 700);
+        float angularVelocity = ofRandom(-360, 360) * DEG_TO_RAD;
+
+        ScenePlayer::instance().add(new Asteroid(spawnPosition, velocity, angularVelocity, Asteroid::BIG));
+    }
 }
