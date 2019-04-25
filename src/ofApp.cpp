@@ -8,7 +8,7 @@
 #include "core/DataManager.h"
 #include "core/Timer.h"
 
-#include "objects/Scene.h"
+#include "dummy/Scene.h"
 
 ofApp::ofApp() {
 }
@@ -24,13 +24,17 @@ void ofApp::setup() {
     InputManager::setup();
     DataManager::load();	
     ScenePlayer::loadScene(new Scene());
-	ScenePlayer::instance().setup();
     GameRenderer::setup();
 }
 
 //--------------------------------------------------------------
-void ofApp::update() {	    
-	Timer::update();	
+void ofApp::update() {
+	Timer::update();
+
+	if (ScenePlayer::loadingScene) {
+		ScenePlayer::showNextScene();
+		GameRenderer::reset();
+	}
 	ScenePlayer::instance().update(Timer::deltaTime());
     PhysicsManager::update(Timer::deltaTime());
 	InputManager::update();

@@ -20,6 +20,7 @@ private:
 	std::vector<std::shared_ptr<GameObject>> m_objects, m_createdObjects;
     std::vector<size_t> m_destroyedObjectsIDs;
     static ScenePlayer* s_instance;
+	static ScenePlayer* s_nextScene;
     size_t m_nextId = 0;
 
     virtual void onLoadScene() = 0;
@@ -30,8 +31,10 @@ protected:
 public:
 
     static void loadScene(ScenePlayer* scene);
+	static void showNextScene();
 
 	static ScenePlayer& instance();
+	static bool loadingScene;
 	virtual ~ScenePlayer();
 
 	void add(GameObject* obj);
@@ -40,9 +43,7 @@ public:
 	template<typename T>
 	std::vector<std::weak_ptr<T>> search();
     
-	void setup();
 	void update(float dt);
-
 };
 
 template<typename T>

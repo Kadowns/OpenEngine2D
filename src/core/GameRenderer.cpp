@@ -13,6 +13,11 @@ void GameRenderer::setup() {
     m_camera = new Camera(ofVec2f(300, 500), 0, 1, 1024, 768);
 }
 
+void GameRenderer::reset() {
+	delete m_camera;
+	setup();
+}
+
 void GameRenderer::draw() {	
 
     m_camera->bind();

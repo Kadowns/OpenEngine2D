@@ -15,7 +15,7 @@
 #include "ThrusterParticles.h"
 #include "ExplosionParticle.h"
 #include "TintSprite.h"
-
+#include "Scene.h"
 
 
 
@@ -94,12 +94,17 @@ void Ship::update(float dt) {
     }
 
     //Inputs-----------------------------------------------------
+	if (InputManager::getKeyPressed('r')) {
+		ScenePlayer::loadScene(new Scene());
+	}
+
+
 	if (InputManager::getButtonDown(m_buttonRight)) {        
         m_rb->addTorque(DEG_TO_RAD * 360);
 	}
 	if (InputManager::getButtonDown(m_buttonLeft)) {        
         m_rb->addTorque(-DEG_TO_RAD * 360);
-	}	
+	}
 
 	if (InputManager::getButtonDown(m_buttonForward)) {  
         move(transform.getRight());

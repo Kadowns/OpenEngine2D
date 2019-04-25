@@ -10,6 +10,7 @@ class GameRenderer {
 public:
 
     static void setup();
+	static void reset();
     static void draw();
     static void add(Renderable* renderer);
     static void remove(Renderable* renderer);

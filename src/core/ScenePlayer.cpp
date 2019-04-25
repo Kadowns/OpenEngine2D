@@ -6,13 +6,26 @@
 #include <algorithm>
 
 ScenePlayer* ScenePlayer::s_instance = nullptr;
+ScenePlayer* ScenePlayer::s_nextScene = nullptr;
+bool ScenePlayer::loadingScene = false;
 
 ScenePlayer::ScenePlayer() {
     
 }
 
 void ScenePlayer::loadScene(ScenePlayer* scene) {
-    s_instance = scene;
+	s_nextScene = scene;
+	loadingScene = true;
+}
+
+void ScenePlayer::showNextScene() {
+	if (s_instance != nullptr) {
+		delete s_instance;
+		s_instance = nullptr;
+	}
+	s_instance = s_nextScene;
+	s_instance->onLoadScene();
+	loadingScene = false;
 }
 
 ScenePlayer& ScenePlayer::instance() {
@@ -35,10 +48,6 @@ void ScenePlayer::destroy(GameObject* obj) {
 		}			
 	}
     m_destroyedObjectsIDs.push_back(obj->getId());
-}
-
-void ScenePlayer::setup() {
-    onLoadScene();
 }
 
 void ScenePlayer::update(float dt) {

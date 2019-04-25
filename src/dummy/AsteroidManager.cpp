@@ -9,7 +9,7 @@
 AsteroidManager::AsteroidManager(float spawnInterval) {
 	m_timeToSpawn = spawnInterval;
 	m_timeToNextSpawn = spawnInterval + Timer::time();
-	
+	m_windowSize = Camera::mainCamera().halfScreenSize() * 2;
 	m_onWindowResizeCallback = [this](int x, int y) {
 		this->onWindowResized(x, y);
 	};
