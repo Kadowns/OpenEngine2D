@@ -76,7 +76,6 @@ void ParticleSystem::draw() {
 
 void ParticleSystem::update(float dt) {
     
-
     while (!m_deactivatedParticles.empty()) {
         removeParticle(m_deactivatedParticles.back());
         m_deactivatedParticles.pop_back();

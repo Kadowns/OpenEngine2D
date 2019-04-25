@@ -23,5 +23,5 @@ void Scene::onLoadScene() {
     add(new StarBackground(200));
     add(new DebugSquare());
     add(new AsteroidManager(2));
-    //add(new QuadTreeController());
+    add(new QuadTreeController());
 }
